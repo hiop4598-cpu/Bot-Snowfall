@@ -77,7 +77,7 @@
       color: #e6dff5;
       border: 1px solid #39324a;
       border-radius: 6px;
-      padding: 4px 8px;
+      padding: 5px 9px;
       font-size: 11px;
       cursor: pointer;
       flex-shrink: 0;
@@ -147,6 +147,11 @@
     .section-title {
       font-size: 15px;
       font-weight: 700;
+      margin: 0 0 8px;
+    }
+    .sub-desc {
+      font-size: 12px;
+      color: #9b92ad;
       margin: 0 0 10px;
     }
     .field-label {
@@ -181,6 +186,30 @@
     }
     .btn-primary { background: #6d5dfc; color: #fff; }
     .btn-secondary { background: #282334; color: #e6dff5; border: 1px solid #39324a; }
+    .pic-picker-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .pic-thumb-box {
+      width: 66px;
+      height: 66px;
+      border-radius: 10px;
+      background: #141218;
+      border: 1px solid #39324a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .pic-thumb-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
     .preview-card {
       background: #1b1821;
       border: 1px solid #2c2736;
@@ -218,19 +247,44 @@
       align-items: center;
       margin-top: 8px;
     }
+    .art-wrap {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+    }
     .activity-art {
-      width: 60px;
-      height: 60px;
+      width: 64px;
+      height: 64px;
       border-radius: 10px;
       background: #2b2538;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 26px;
       overflow: hidden;
-      flex-shrink: 0;
     }
     .activity-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .small-badge {
+      position: absolute;
+      right: -5px;
+      bottom: -5px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #1b1821;
+      border: 2px solid #141218;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      overflow: hidden;
+    }
+    .small-badge img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -309,7 +363,6 @@
       </div>
     </div>
 
-    <!-- หน้า 1: สถานะของคุณ -->
     <section id="tab-status">
       <div class="grid-editor">
         <div>
@@ -339,15 +392,53 @@
           </div>
 
           <div class="panel">
-            <h2 class="section-title">รูปภาพ & ปุ่มลิงก์</h2>
-            <label class="field-label">อีโมจิหรือลิงก์รูปภาพหลัก</label>
+            <h2 class="section-title">รูปภาพหลัก & GIF</h2>
+            <p class="sub-desc">รองรับอีโมจิ ลิงก์รูปภาพ หรืออัปโหลดไฟล์รูป/GIF จากเครื่อง</p>
+
+            <div class="pic-picker-row">
+              <div id="mainThumbBox" class="pic-thumb-box">🐱</div>
+              <div>
+                <button class="btn btn-secondary" type="button" onclick="document.getElementById('mainFileInput').click()">
+                  เปลี่ยนรูป / GIF (change)
+                </button>
+                <input id="mainFileInput" type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'main')" />
+              </div>
+            </div>
+
+            <label class="field-label">ลิงก์รูปภาพ / GIF หรืออีโมจิ</label>
             <input id="inArt" type="text" value="🐱" oninput="renderPreview()" />
 
             <label class="field-label">ข้อความเมื่อชี้รูป (Hover text)</label>
             <input id="inHover" type="text" value="น่ารักที่สุดเลย" oninput="renderPreview()" />
 
-            <div class="row-between" style="margin-top:12px;">
-              <span class="section-title" style="margin:0;">ปุ่มลิงก์บนการ์ด</span>
+            <div class="row-between" style="margin-top:16px; padding-top:14px; border-top:1px solid #2c2736;">
+              <div>
+                <div class="section-title" style="margin:0;">รูปเล็กมุมล่างขวา (small picture)</div>
+                <div class="sub-desc" style="margin:2px 0 0;">สติกเกอร์หรือรูปเล็กบนมุมขวาของรูปหลัก</div>
+              </div>
+              <input id="inSmallEnabled" type="checkbox" checked onchange="renderPreview()" />
+            </div>
+
+            <div class="pic-picker-row">
+              <div id="smallThumbBox" class="pic-thumb-box" style="width:46px; height:46px; font-size:18px;">✨</div>
+              <div>
+                <button class="btn btn-secondary" type="button" onclick="document.getElementById('smallFileInput').click()">
+                  เลือกรูปเล็ก
+                </button>
+                <input id="smallFileInput" type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'small')" />
+              </div>
+            </div>
+
+            <label class="field-label">ลิงก์รูปเล็กหรืออีโมจิ</label>
+            <input id="inSmallArt" type="text" value="✨" oninput="renderPreview()" />
+
+            <label class="field-label">ข้อความเมื่อชี้รูปเล็ก</label>
+            <input id="inSmallHover" type="text" value="สติกเกอร์เล็กๆ" oninput="renderPreview()" />
+          </div>
+
+          <div class="panel">
+            <div class="row-between">
+              <span class="section-title" style="margin:0;">ปุ่มลิงก์บนการ์ด (buttons)</span>
               <input id="inBtnEnabled" type="checkbox" checked onchange="renderPreview()" />
             </div>
 
@@ -383,7 +474,10 @@
               <div id="activityBox" class="activity-box">
                 <div id="prevType" style="font-size:12px; font-weight:600; color:#c6bed9;">กำลังเล่น</div>
                 <div class="activity-content">
-                  <div id="prevArt" class="activity-art" title="น่ารักที่สุดเลย">🐱</div>
+                  <div class="art-wrap">
+                    <div id="prevArt" class="activity-art" title="น่ารักที่สุดเลย">🐱</div>
+                    <div id="prevSmallArt" class="small-badge" title="สติกเกอร์เล็กๆ">✨</div>
+                  </div>
                   <div>
                     <div id="prevFirst" style="font-size:13px; font-weight:600;">♡ ~ ♪</div>
                     <div id="prevSecond" style="font-size:12px; color:#b7afc7;">sweet • kitty</div>
@@ -406,7 +500,6 @@
       </div>
     </section>
 
-    <!-- หน้า 2: เทมเพลต -->
     <section id="tab-templates" class="hidden">
       <div class="panel">
         <div class="row-between" style="flex-wrap:wrap;">
@@ -420,7 +513,6 @@
       </div>
     </section>
 
-    <!-- หน้า 3: รีวิว -->
     <section id="tab-reviews" class="hidden">
       <div class="panel">
         <h2 class="section-title" style="font-size:20px;">เขียนรีวิว</h2>
@@ -450,7 +542,6 @@
       </div>
     </section>
 
-    <!-- หน้า 4: แจ้งปัญหา -->
     <section id="tab-report" class="hidden">
       <div class="panel" style="max-width:600px;">
         <h2 class="section-title" style="font-size:20px;">แจ้งปัญหาการใช้งาน</h2>
@@ -470,10 +561,10 @@
       `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&scope=identify`;
 
     const templatesData = [
-      { title: '.sweet kitty', type: 'กำลังเล่น', first: '♡ ~ ♪', second: 'sweet • kitty', art: '🐱' },
-      { title: 'columbina | genshin impact', type: 'กำลังเล่น', first: 'ในเงาแห่งน้ำอนาคตสะท้อน...', second: 'ม่านแห่งความลับกำลังเลือนลาง', art: '🌙' },
-      { title: 'sleepy bunny c:', type: 'กำลังฟัง', first: 'z z z', second: 'ฝันดีนะคืนนี้', art: '🐰' },
-      { title: 'soft angel aa', type: 'กำลังรับชม', first: '✧ ˚ · .', second: 'โหมดพักผ่อนสบายๆ', art: '🪽' }
+      { title: '.sweet kitty', type: 'กำลังเล่น', first: '♡ ~ ♪', second: 'sweet • kitty', art: '🐱', small: '✨' },
+      { title: 'columbina | genshin impact', type: 'กำลังเล่น', first: 'ในเงาแห่งน้ำอนาคตสะท้อน...', second: 'ม่านแห่งความลับกำลังเลือนลาง', art: '🌙', small: '✦' },
+      { title: 'sleepy bunny c:', type: 'กำลังฟัง', first: 'z z z', second: 'ฝันดีนะคืนนี้', art: '🐰', small: '💤' },
+      { title: 'soft angel aa', type: 'กำลังรับชม', first: '✧ ˚ · .', second: 'โหมดพักผ่อนสบายๆ', art: '🪽', small: '♡' }
     ];
 
     let currentRating = 5;
@@ -519,181 +610,17 @@
       document.getElementById('previewCard').classList.toggle('phone-mode', mode === 'phone');
     }
 
-    function renderPreview() {
-      const enabled = document.getElementById('statusEnabled').checked;
-      document.getElementById('statusToggleText').textContent = enabled ? 'เปิดใช้งานสถานะแล้ว' : 'ปิดใช้งานสถานะแล้ว';
-      document.getElementById('activityBox').style.opacity = enabled ? '1' : '0.4';
-
-      document.getElementById('prevType').textContent = document.getElementById('inType').value;
-      document.getElementById('prevFirst').textContent = document.getElementById('inFirstLine').value || ' ';
-      document.getElementById('prevSecond').textContent = document.getElementById('inSecondLine').value || ' ';
-
-      const artVal = (document.getElementById('inArt').value || '🐱').trim();
-      const artBox = document.getElementById('prevArt');
-      artBox.title = document.getElementById('inHover').value || '';
-      if (artVal.startsWith('http://') || artVal.startsWith('https://')) {
-        artBox.innerHTML = `<img src="${artVal}" alt="art" />`;
-      } else {
-        artBox.textContent = artVal;
-      }
-
-      const timerMode = document.getElementById('inTimerMode').value;
-      document.getElementById('prevTimerWrap').style.display = timerMode === 'none' ? 'none' : 'flex';
-
-      const btnEnabled = document.getElementById('inBtnEnabled').checked;
-      const btnEl = document.getElementById('prevBtn1');
-      btnEl.style.display = btnEnabled ? 'block' : 'none';
-      btnEl.textContent = document.getElementById('inBtn1Text').value || 'ปุ่มลิงก์';
-      btnEl.href = document.getElementById('inBtn1Url').value || '#';
-    }
-
-    function saveStatus() {
-      const data = {
-        type: document.getElementById('inType').value,
-        first: document.getElementById('inFirstLine').value,
-        second: document.getElementById('inSecondLine').value,
-        timerMode: document.getElementById('inTimerMode').value,
-        art: document.getElementById('inArt').value,
-        hover: document.getElementById('inHover').value,
-        btnEnabled: document.getElementById('inBtnEnabled').checked,
-        btn1Text: document.getElementById('inBtn1Text').value,
-        btn1Url: document.getElementById('inBtn1Url').value
+    function handleFileUpload(event, target) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (target === 'main') {
+          document.getElementById('inArt').value = reader.result;
+        } else {
+          document.getElementById('inSmallArt').value = reader.result;
+        }
+        renderPreview();
       };
-      localStorage.setItem('snowfall_status', JSON.stringify(data));
-      alert('บันทึกการตั้งค่าเรียบร้อยแล้วครับ');
-    }
-
-    function resetStatus() {
-      localStorage.removeItem('snowfall_status');
-      document.getElementById('inType').value = 'กำลังเล่น';
-      document.getElementById('inFirstLine').value = '♡ ~ ♪';
-      document.getElementById('inSecondLine').value = 'sweet • kitty';
-      document.getElementById('inTimerMode').value = 'up';
-      document.getElementById('inArt').value = '🐱';
-      document.getElementById('inHover').value = 'น่ารักที่สุดเลย';
-      document.getElementById('inBtnEnabled').checked = true;
-      document.getElementById('inBtn1Text').value = 'เข้าเซิร์ฟเวอร์';
-      document.getElementById('inBtn1Url').value = 'https://discord.gg';
-      renderPreview();
-    }
-
-    function loadSavedStatus() {
-      const raw = localStorage.getItem('snowfall_status');
-      if (!raw) return;
-      try {
-        const d = JSON.parse(raw);
-        if (d.type) document.getElementById('inType').value = d.type;
-        if (d.first !== undefined) document.getElementById('inFirstLine').value = d.first;
-        if (d.second !== undefined) document.getElementById('inSecondLine').value = d.second;
-        if (d.timerMode) document.getElementById('inTimerMode').value = d.timerMode;
-        if (d.art !== undefined) document.getElementById('inArt').value = d.art;
-        if (d.hover !== undefined) document.getElementById('inHover').value = d.hover;
-        if (d.btnEnabled !== undefined) document.getElementById('inBtnEnabled').checked = d.btnEnabled;
-        if (d.btn1Text !== undefined) document.getElementById('inBtn1Text').value = d.btn1Text;
-        if (d.btn1Url !== undefined) document.getElementById('inBtn1Url').value = d.btn1Url;
-      } catch (_) {}
-    }
-
-    function renderTemplates() {
-      const q = (document.getElementById('tplSearch').value || '').toLowerCase().trim();
-      const filtered = templatesData.filter(t =>
-        t.title.toLowerCase().includes(q) || t.first.toLowerCase().includes(q) || t.second.toLowerCase().includes(q)
-      );
-      document.getElementById('templatesList').innerHTML = filtered.map((t, idx) => `
-        <div class="tpl-card">
-          <div style="font-weight:700; font-size:15px; margin-bottom:6px;">${t.title}</div>
-          <div style="font-size:12px; color:#b7afc7;">${t.first}</div>
-          <div style="font-size:12px; color:#9b92ad; margin-bottom:10px;">${t.second}</div>
-          <button class="btn btn-secondary" style="width:100%;" onclick="useTemplate(${idx})">ใช้เทมเพลตนี้</button>
-        </div>
-      `).join('');
-    }
-
-    function useTemplate(idx) {
-      const t = templatesData[idx];
-      if (!t) return;
-      document.getElementById('inType').value = t.type;
-      document.getElementById('inFirstLine').value = t.first;
-      document.getElementById('inSecondLine').value = t.second;
-      document.getElementById('inArt').value = t.art;
-      renderPreview();
-      switchTab('status');
-    }
-
-    function setRating(star) {
-      currentRating = star;
-      document.querySelectorAll('#starPicker .star-btn').forEach((btn, i) => {
-        btn.classList.toggle('active', i < star);
-      });
-    }
-
-    function addReview() {
-      const text = document.getElementById('reviewText').value.trim();
-      if (!text) return alert('กรุณาพิมพ์ข้อความรีวิวก่อนครับ');
-      const anon = document.getElementById('reviewAnon').checked;
-      const userLabel = document.getElementById('sideName').textContent || 'ผู้ใช้งาน';
-      reviewsData.unshift({
-        author: anon ? 'ไม่ระบุตัวตน' : userLabel,
-        rating: currentRating,
-        text
-      });
-      localStorage.setItem('snowfall_reviews', JSON.stringify(reviewsData));
-      document.getElementById('reviewText').value = '';
-      renderReviews();
-    }
-
-    function renderReviews() {
-      document.getElementById('reviewsList').innerHTML = reviewsData.map(r => `
-        <div style="border-top:1px solid #2c2736; padding:12px 0;">
-          <div class="row-between">
-            <strong style="font-size:13px;">${r.author}</strong>
-            <span style="color:#f5b942; font-size:13px;">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
-          </div>
-          <div style="font-size:13px; color:#d7d0e6; margin-top:5px;">${r.text}</div>
-        </div>
-      `).join('');
-    }
-
-    function submitReport() {
-      const topic = document.getElementById('reportTopic').value.trim();
-      const detail = document.getElementById('reportDetail').value.trim();
-      if (!topic || !detail) return alert('กรุณากรอกหัวข้อและรายละเอียดให้ครบครับ');
-      document.getElementById('reportTopic').value = '';
-      document.getElementById('reportDetail').value = '';
-      alert('ส่งรายงานเรียบร้อยแล้วครับ');
-    }
-
-    let seconds = 0;
-    setInterval(() => {
-      seconds += 1;
-      const m = String(Math.floor(seconds / 60)).padStart(2, '0');
-      const s = String(seconds % 60).padStart(2, '0');
-      document.getElementById('timerText').textContent = `${m}:${s}`;
-    }, 1000);
-
-    const params = new URLSearchParams(window.location.search);
-    const username = params.get('username');
-    const globalName = params.get('global_name');
-    const userId = params.get('id');
-    const avatar = params.get('avatar');
-    if (username) {
-      const display = globalName || username;
-      const avatarUrl = avatar
-        ? `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`
-        : 'https://cdn.discordapp.com/embed/avatars/0.png';
-      document.getElementById('sideName').textContent = display;
-      document.getElementById('sideHandle').textContent = `@${username}`;
-      document.getElementById('sideAvatar').src = avatarUrl;
-      document.getElementById('cardDisplayName').textContent = display;
-      document.getElementById('cardUsername').textContent = username;
-      document.getElementById('cardAvatar').src = avatarUrl;
-      document.getElementById('authBtn').textContent = 'เชื่อมต่อ Discord แล้ว ✓';
-    }
-
-    loadSavedStatus();
-    renderPreview();
-    renderTemplates();
-    renderReviews();
-  </script>
-</body>
-</html>
+      reader.readAsDataURL(file);
+    
