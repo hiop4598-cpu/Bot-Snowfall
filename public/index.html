@@ -3,47 +3,84 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Snowfall Status - Templates</title>
+  <title>Snowfall Status - สถานะของฉัน</title>
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif;
       background: #141218;
       color: #f3effa;
       min-height: 100vh;
       display: flex;
     }
     .sidebar {
-      width: 220px;
+      width: 245px;
       background: #1b1821;
       border-right: 1px solid #2c2736;
-      padding: 18px 12px;
+      padding: 16px 12px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      gap: 12px;
       flex-shrink: 0;
     }
     .brand {
       font-weight: 700;
       font-size: 16px;
-      padding: 6px 10px 16px;
+      padding: 6px 10px 14px;
       color: #fff;
       border-bottom: 1px solid #2c2736;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .nav-item {
       padding: 10px 12px;
       border-radius: 8px;
       color: #b7afc7;
       font-size: 14px;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
       cursor: pointer;
     }
     .nav-item.active {
       background: #2b2538;
       color: #fff;
       font-weight: 600;
+    }
+    .owner-box {
+      background: #141218;
+      border: 1px solid #2c2736;
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .owner-label {
+      font-size: 11px;
+      color: #9b92ad;
+      margin-bottom: 4px;
+    }
+    .owner-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .owner-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #e6dff5;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .mini-btn {
+      background: #282334;
+      color: #e6dff5;
+      border: 1px solid #39324a;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      flex-shrink: 0;
     }
     .user-box {
       background: #141218;
@@ -67,97 +104,98 @@
       padding: 20px 24px;
       overflow-y: auto;
     }
-    .topbar {
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .breadcrumb {
       color: #b7afc7;
       font-size: 13px;
-      margin-bottom: 18px;
     }
-    .grid {
+    .status-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #1b1821;
+      border: 1px solid #2c2736;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+    .grid-editor {
       display: grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1fr 350px;
       gap: 20px;
       align-items: start;
     }
-    @media (max-width: 820px) {
+    @media (max-width: 860px) {
       body { flex-direction: column; }
       .sidebar { width: 100%; border-right: none; border-bottom: 1px solid #2c2736; }
-      .grid { grid-template-columns: 1fr; }
+      .grid-editor { grid-template-columns: 1fr; }
     }
     .panel {
       background: #1b1821;
       border: 1px solid #2c2736;
       border-radius: 14px;
-      padding: 20px;
+      padding: 18px;
+      margin-bottom: 14px;
     }
-    .title {
-      font-size: 24px;
+    .section-title {
+      font-size: 15px;
       font-weight: 700;
-      margin: 0 0 8px;
+      margin: 0 0 10px;
     }
-    .desc {
-      color: #b7afc7;
-      font-size: 14px;
-      line-height: 1.5;
-      margin: 0 0 18px;
-    }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-    .stat-box {
-      background: #141218;
-      border: 1px solid #2c2736;
-      border-radius: 10px;
-      padding: 10px;
-      text-align: center;
-    }
-    .stat-num { font-weight: 700; font-size: 15px; }
-    .stat-lbl { color: #9b92ad; font-size: 12px; margin-top: 2px; }
-    .btn {
+    .field-label {
       display: block;
-      width: 100%;
-      padding: 11px 14px;
-      border-radius: 9px;
-      border: none;
-      font-size: 14px;
-      font-weight: 600;
-      text-align: center;
-      text-decoration: none;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
-    .btn-primary {
-      background: #6d5dfc;
-      color: #fff;
-    }
-    .btn-secondary {
-      background: #282334;
-      color: #e6dff5;
-      border: 1px solid #39324a;
-    }
-    .note {
-      background: #141218;
-      border: 1px solid #2c2736;
-      border-radius: 10px;
-      padding: 11px 12px;
       font-size: 12px;
       color: #b7afc7;
+      margin: 10px 0 5px;
     }
-    .profile-card {
+    input[type="text"], select, textarea {
+      width: 100%;
+      background: #141218;
+      border: 1px solid #39324a;
+      color: #fff;
+      border-radius: 8px;
+      padding: 9px 11px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+    .row-between {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .btn {
+      padding: 10px 14px;
+      border-radius: 9px;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-primary { background: #6d5dfc; color: #fff; }
+    .btn-secondary { background: #282334; color: #e6dff5; border: 1px solid #39324a; }
+    .preview-card {
       background: #1b1821;
       border: 1px solid #2c2736;
       border-radius: 14px;
       overflow: hidden;
     }
+    .preview-card.phone-mode {
+      max-width: 310px;
+      margin: 0 auto;
+    }
     .banner {
       height: 76px;
       background: linear-gradient(135deg, #4b3f72, #2b2340);
     }
-    .profile-body {
-      padding: 0 16px 16px;
-    }
+    .profile-body { padding: 0 16px 16px; }
     .profile-avatar {
       width: 64px;
       height: 64px;
@@ -174,16 +212,11 @@
       border-radius: 12px;
       padding: 12px;
     }
-    .activity-header {
-      font-size: 12px;
-      font-weight: 600;
-      color: #c6bed9;
-      margin-bottom: 10px;
-    }
     .activity-content {
       display: flex;
       gap: 12px;
       align-items: center;
+      margin-top: 8px;
     }
     .activity-art {
       width: 60px;
@@ -194,7 +227,13 @@
       align-items: center;
       justify-content: center;
       font-size: 24px;
+      overflow: hidden;
       flex-shrink: 0;
+    }
+    .activity-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .timer-row {
       font-size: 12px;
@@ -205,105 +244,223 @@
       align-items: center;
       gap: 6px;
     }
-    .editor {
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 14px;
       margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid #2c2736;
-      display: none;
     }
-    .editor.show { display: block; }
-    .editor input {
-      width: 100%;
-      padding: 9px 10px;
-      border-radius: 8px;
-      border: 1px solid #39324a;
-      background: #141218;
-      color: #fff;
-      margin-bottom: 8px;
-      font-size: 13px;
+    .tpl-card {
+      background: #1b1821;
+      border: 1px solid #2c2736;
+      border-radius: 12px;
+      padding: 14px;
     }
+    .star-btn {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #6b637d;
+      padding: 0 2px;
+    }
+    .star-btn.active { color: #f5b942; }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
   <aside class="sidebar">
     <div>
       <div class="brand">❄️ snowfall status</div>
-      <div class="nav-item">your status</div>
-      <div class="nav-item active">templates</div>
+      <div class="nav-item active" data-tab="status" onclick="switchTab('status')">สถานะของคุณ</div>
+      <div class="nav-item" data-tab="templates" onclick="switchTab('templates')">เทมเพลต</div>
+      <div class="nav-item" data-tab="reviews" onclick="switchTab('reviews')">รีวิว</div>
+      <div class="nav-item" data-tab="report" onclick="switchTab('report')">แจ้งปัญหา</div>
+
+      <div class="owner-box">
+        <div class="owner-label">เจ้าของเซิร์ฟเวอร์ / ผู้สร้าง</div>
+        <div class="owner-row">
+          <span id="ownerNameDisplay" class="owner-name">เจ้าของเซิร์ฟเวอร์</span>
+          <button class="mini-btn" onclick="editOwnerName()">แก้ชื่อ</button>
+        </div>
+      </div>
     </div>
-    <div class="user-box">
-      <img id="sideAvatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" />
-      <div>
-        <div id="sideName" style="font-size:13px; font-weight:600;">Guest</div>
-        <div id="sideHandle" style="font-size:11px; color:#9b92ad;">not connected</div>
+
+    <div>
+      <a id="authBtn" class="btn btn-primary" style="display:block; text-align:center; text-decoration:none; margin-bottom:10px;" href="#">
+        เชื่อมต่อ Discord
+      </a>
+      <div class="user-box">
+        <img id="sideAvatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" />
+        <div>
+          <div id="sideName" style="font-size:13px; font-weight:600;">ผู้เยี่ยมชม</div>
+          <div id="sideHandle" style="font-size:11px; color:#9b92ad;">ยังไม่ได้เชื่อมต่อ</div>
+        </div>
       </div>
     </div>
   </aside>
 
   <main class="main">
-    <div class="topbar">snowfall status / templates / .sweet kitty</div>
-    <div class="grid">
-      <section class="panel">
-        <h1 id="tplTitle" class="title">.sweet kitty</h1>
-        <p id="tplDesc" class="desc">cute sanrio charmy kitty | custom status template for snowfall</p>
+    <div class="top-bar">
+      <div id="breadcrumb" class="breadcrumb">snowfall status / สถานะของคุณ</div>
+      <div class="status-toggle-wrap">
+        <span id="statusToggleText">เปิดใช้งานสถานะแล้ว</span>
+        <input id="statusEnabled" type="checkbox" checked onchange="renderPreview()" />
+      </div>
+    </div>
 
-        <div class="stats">
-          <div class="stat-box">
-            <div class="stat-num">336</div>
-            <div class="stat-lbl">uses</div>
+    <!-- หน้า 1: สถานะของคุณ -->
+    <section id="tab-status">
+      <div class="grid-editor">
+        <div>
+          <div class="panel">
+            <h2 class="section-title">ข้อความสถานะ</h2>
+            <label class="field-label">ประเภทกิจกรรม</label>
+            <select id="inType" onchange="renderPreview()">
+              <option value="กำลังเล่น">กำลังเล่น (Playing)</option>
+              <option value="กำลังฟัง">กำลังฟัง (Listening)</option>
+              <option value="กำลังรับชม">กำลังรับชม (Watching)</option>
+            </select>
+
+            <label class="field-label">บรรทัดแรก</label>
+            <input id="inFirstLine" type="text" value="♡ ~ ♪" oninput="renderPreview()" />
+
+            <label class="field-label">บรรทัดที่สอง</label>
+            <input id="inSecondLine" type="text" value="sweet • kitty" oninput="renderPreview()" />
           </div>
-          <div class="stat-box">
-            <div class="stat-num">6d</div>
-            <div class="stat-lbl">age</div>
+
+          <div class="panel">
+            <h2 class="section-title">ตัวจับเวลา</h2>
+            <label class="field-label">โหมดจับเวลา</label>
+            <select id="inTimerMode" onchange="renderPreview()">
+              <option value="up">นับเวลาเดินหน้า</option>
+              <option value="none">ซ่อนตัวจับเวลา</option>
+            </select>
           </div>
-          <div class="stat-box">
-            <div class="stat-num">playing</div>
-            <div class="stat-lbl">type</div>
+
+          <div class="panel">
+            <h2 class="section-title">รูปภาพ & ปุ่มลิงก์</h2>
+            <label class="field-label">อีโมจิหรือลิงก์รูปภาพหลัก</label>
+            <input id="inArt" type="text" value="🐱" oninput="renderPreview()" />
+
+            <label class="field-label">ข้อความเมื่อชี้รูป (Hover text)</label>
+            <input id="inHover" type="text" value="น่ารักที่สุดเลย" oninput="renderPreview()" />
+
+            <div class="row-between" style="margin-top:12px;">
+              <span class="section-title" style="margin:0;">ปุ่มลิงก์บนการ์ด</span>
+              <input id="inBtnEnabled" type="checkbox" checked onchange="renderPreview()" />
+            </div>
+
+            <label class="field-label">ข้อความปุ่มที่ 1</label>
+            <input id="inBtn1Text" type="text" value="เข้าเซิร์ฟเวอร์" oninput="renderPreview()" />
+
+            <label class="field-label">ลิงก์ปุ่มที่ 1</label>
+            <input id="inBtn1Url" type="text" value="https://discord.gg" oninput="renderPreview()" />
+          </div>
+
+          <div class="row-between">
+            <button class="btn btn-primary" onclick="saveStatus()">บันทึกการตั้งค่า</button>
+            <button class="btn btn-secondary" onclick="resetStatus()">รีเซ็ตค่าเริ่มต้น</button>
           </div>
         </div>
 
-        <a id="authBtn" class="btn btn-primary" href="#">Authorize to use it</a>
-        <button id="useBtn" class="btn btn-secondary" onclick="toggleEditor()">use this template</button>
-        <button class="btn btn-secondary" onclick="copyTemplateText()">copy link / text</button>
+        <aside>
+          <div class="row-between" style="margin-bottom:10px;">
+            <span style="font-size:13px; color:#b7afc7;">ตัวอย่างการ์ด</span>
+            <div>
+              <button class="mini-btn" onclick="setDeviceMode('pc')">คอมพิวเตอร์</button>
+              <button class="mini-btn" onclick="setDeviceMode('phone')">มือถือ</button>
+            </div>
+          </div>
 
-        <div class="note">
-          It loads into your status editor, you can change anything before you save it.
-        </div>
+          <div id="previewCard" class="preview-card">
+            <div class="banner"></div>
+            <div class="profile-body">
+              <img id="cardAvatar" class="profile-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="profile" />
+              <div id="cardDisplayName" style="font-size:17px; font-weight:700; margin-top:8px;">คุณ</div>
+              <div id="cardUsername" style="font-size:12px; color:#9b92ad;">ชื่อผู้ใช้</div>
 
-        <div id="editorBox" class="editor">
-          <input id="inTitle" type="text" placeholder="ชื่อเทมเพลต" value=".sweet kitty" />
-          <input id="inDetails" type="text" placeholder="บรรทัดที่ 1 (Details)" value="♡ ~ ♪" />
-          <input id="inState" type="text" placeholder="บรรทัดที่ 2 (State)" value="sweet • kitty" />
-          <button class="btn btn-primary" onclick="applyChanges()">บันทึกตัวอย่างการ์ด</button>
-        </div>
-      </section>
-
-      <aside class="profile-card">
-        <div class="banner"></div>
-        <div class="profile-body">
-          <img id="cardAvatar" class="profile-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="profile" />
-          <div id="cardDisplayName" style="font-size:17px; font-weight:700; margin-top:8px;">you</div>
-          <div id="cardUsername" style="font-size:12px; color:#9b92ad;">your.name</div>
-
-          <div class="activity-box">
-            <div class="activity-header">Playing</div>
-            <div class="activity-content">
-              <div class="activity-art">🐱</div>
-              <div>
-                <div id="prevDetails" style="font-size:13px; font-weight:600;">♡ ~ ♪</div>
-                <div id="prevState" style="font-size:12px; color:#b7afc7;">sweet • kitty</div>
-                <div class="timer-row">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#3ba55d" aria-hidden="true">
-                    <path d="M6.5 7.5h11A4.5 4.5 0 0 1 22 12v2.2a3.3 3.3 0 0 1-5.64 2.33l-1.66-1.66a1 1 0 0 0-.7-.29H10a1 1 0 0 0-.7.29l-1.66 1.66A3.3 3.3 0 0 1 2 14.2V12a4.5 4.5 0 0 1 4.5-4.5zm1 2.2v1.3H6.2v1.4h1.3v1.3h1.4v-1.3h1.3V11H8.9V9.7H7.5zm8.5.3a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                  </svg>
-                  <span id="timerText">00:00</span>
+              <div id="activityBox" class="activity-box">
+                <div id="prevType" style="font-size:12px; font-weight:600; color:#c6bed9;">กำลังเล่น</div>
+                <div class="activity-content">
+                  <div id="prevArt" class="activity-art" title="น่ารักที่สุดเลย">🐱</div>
+                  <div>
+                    <div id="prevFirst" style="font-size:13px; font-weight:600;">♡ ~ ♪</div>
+                    <div id="prevSecond" style="font-size:12px; color:#b7afc7;">sweet • kitty</div>
+                    <div id="prevTimerWrap" class="timer-row">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="#3ba55d" aria-hidden="true">
+                        <path d="M6.5 7.5h11A4.5 4.5 0 0 1 22 12v2.2a3.3 3.3 0 0 1-5.64 2.33l-1.66-1.66a1 1 0 0 0-.7-.29H10a1 1 0 0 0-.7.29l-1.66 1.66A3.3 3.3 0 0 1 2 14.2V12a4.5 4.5 0 0 1 4.5-4.5zm1 2.2v1.3H6.2v1.4h1.3v1.3h1.4v-1.3h1.3V11H8.9V9.7H7.5zm8.5.3a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                      </svg>
+                      <span id="timerText">00:00</span>
+                    </div>
+                  </div>
                 </div>
+
+                <a id="prevBtn1" href="https://discord.gg" target="_blank" class="btn btn-secondary" style="display:block; text-align:center; text-decoration:none; margin-top:12px; margin-bottom:0;">
+                  เข้าเซิร์ฟเวอร์
+                </a>
               </div>
             </div>
           </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- หน้า 2: เทมเพลต -->
+    <section id="tab-templates" class="hidden">
+      <div class="panel">
+        <div class="row-between" style="flex-wrap:wrap;">
+          <div>
+            <h2 class="section-title" style="font-size:20px;">คลังเทมเพลตทั้งหมด</h2>
+            <div style="font-size:13px; color:#b7afc7;">เลือกเทมเพลตที่ชอบแล้วกดใช้เพื่อนำมาปรับแต่งต่อได้เลย</div>
+          </div>
+          <input id="tplSearch" type="text" placeholder="ค้นหาเทมเพลต..." style="max-width:240px;" oninput="renderTemplates()" />
         </div>
-      </aside>
-    </div>
+        <div id="templatesList" class="templates-grid"></div>
+      </div>
+    </section>
+
+    <!-- หน้า 3: รีวิว -->
+    <section id="tab-reviews" class="hidden">
+      <div class="panel">
+        <h2 class="section-title" style="font-size:20px;">เขียนรีวิว</h2>
+        <label class="field-label">ให้คะแนน</label>
+        <div id="starPicker">
+          <button class="star-btn active" onclick="setRating(1)">★</button>
+          <button class="star-btn active" onclick="setRating(2)">★</button>
+          <button class="star-btn active" onclick="setRating(3)">★</button>
+          <button class="star-btn active" onclick="setRating(4)">★</button>
+          <button class="star-btn active" onclick="setRating(5)">★</button>
+        </div>
+
+        <label class="field-label">ความคิดเห็นของคุณ</label>
+        <textarea id="reviewText" rows="3" placeholder="คุณคิดอย่างไรกับระบบนี้บ้าง..."></textarea>
+
+        <div class="row-between" style="margin-top:10px;">
+          <label style="font-size:13px; color:#b7afc7;">
+            <input id="reviewAnon" type="checkbox" /> โพสต์แบบไม่ระบุตัวตน
+          </label>
+          <button class="btn btn-primary" onclick="addReview()">ส่งรีวิว</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3 class="section-title">รีวิวทั้งหมด</h3>
+        <div id="reviewsList"></div>
+      </div>
+    </section>
+
+    <!-- หน้า 4: แจ้งปัญหา -->
+    <section id="tab-report" class="hidden">
+      <div class="panel" style="max-width:600px;">
+        <h2 class="section-title" style="font-size:20px;">แจ้งปัญหาการใช้งาน</h2>
+        <label class="field-label">หัวข้อปัญหา</label>
+        <input id="reportTopic" type="text" placeholder="เช่น การแสดงผลการ์ด หรือการเชื่อมต่อ" />
+        <label class="field-label">รายละเอียด</label>
+        <textarea id="reportDetail" rows="4" placeholder="อธิบายรายละเอียดเพิ่มเติม..."></textarea>
+        <button class="btn btn-primary" style="margin-top:12px;" onclick="submitReport()">ส่งรายงาน</button>
+      </div>
+    </section>
   </main>
 
   <script>
@@ -311,6 +468,200 @@
     const REDIRECT_URI = encodeURIComponent('https://bot-snowfall.onrender.com/callback');
     document.getElementById('authBtn').href =
       `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&scope=identify`;
+
+    const templatesData = [
+      { title: '.sweet kitty', type: 'กำลังเล่น', first: '♡ ~ ♪', second: 'sweet • kitty', art: '🐱' },
+      { title: 'columbina | genshin impact', type: 'กำลังเล่น', first: 'ในเงาแห่งน้ำอนาคตสะท้อน...', second: 'ม่านแห่งความลับกำลังเลือนลาง', art: '🌙' },
+      { title: 'sleepy bunny c:', type: 'กำลังฟัง', first: 'z z z', second: 'ฝันดีนะคืนนี้', art: '🐰' },
+      { title: 'soft angel aa', type: 'กำลังรับชม', first: '✧ ˚ · .', second: 'โหมดพักผ่อนสบายๆ', art: '🪽' }
+    ];
+
+    let currentRating = 5;
+    let reviewsData = JSON.parse(localStorage.getItem('snowfall_reviews') || '[]');
+    if (reviewsData.length === 0) {
+      reviewsData = [
+        { author: 'ไม่ระบุตัวตน', rating: 5, text: 'หน้าตาเว็บสวยมาก ปรับแต่งง่ายสุดๆ' },
+        { author: 'สมาชิกเซิร์ฟเวอร์', rating: 5, text: 'เทมเพลตเยอะและเข้ากับธีมมากครับ' }
+      ];
+    }
+
+    const savedOwner = localStorage.getItem('snowfall_owner') || 'เจ้าของเซิร์ฟเวอร์';
+    document.getElementById('ownerNameDisplay').textContent = savedOwner;
+
+    function editOwnerName() {
+      const current = document.getElementById('ownerNameDisplay').textContent;
+      const next = prompt('กรอกชื่อเจ้าของเซิร์ฟเวอร์ / ผู้สร้าง:', current);
+      if (next && next.trim()) {
+        const clean = next.trim();
+        document.getElementById('ownerNameDisplay').textContent = clean;
+        localStorage.setItem('snowfall_owner', clean);
+      }
+    }
+
+    const tabNames = {
+      status: 'สถานะของคุณ',
+      templates: 'เทมเพลต',
+      reviews: 'รีวิว',
+      report: 'แจ้งปัญหา'
+    };
+
+    function switchTab(tab) {
+      document.querySelectorAll('.nav-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.tab === tab);
+      });
+      ['status', 'templates', 'reviews', 'report'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tab);
+      });
+      document.getElementById('breadcrumb').textContent = `snowfall status / ${tabNames[tab]}`;
+    }
+
+    function setDeviceMode(mode) {
+      document.getElementById('previewCard').classList.toggle('phone-mode', mode === 'phone');
+    }
+
+    function renderPreview() {
+      const enabled = document.getElementById('statusEnabled').checked;
+      document.getElementById('statusToggleText').textContent = enabled ? 'เปิดใช้งานสถานะแล้ว' : 'ปิดใช้งานสถานะแล้ว';
+      document.getElementById('activityBox').style.opacity = enabled ? '1' : '0.4';
+
+      document.getElementById('prevType').textContent = document.getElementById('inType').value;
+      document.getElementById('prevFirst').textContent = document.getElementById('inFirstLine').value || ' ';
+      document.getElementById('prevSecond').textContent = document.getElementById('inSecondLine').value || ' ';
+
+      const artVal = (document.getElementById('inArt').value || '🐱').trim();
+      const artBox = document.getElementById('prevArt');
+      artBox.title = document.getElementById('inHover').value || '';
+      if (artVal.startsWith('http://') || artVal.startsWith('https://')) {
+        artBox.innerHTML = `<img src="${artVal}" alt="art" />`;
+      } else {
+        artBox.textContent = artVal;
+      }
+
+      const timerMode = document.getElementById('inTimerMode').value;
+      document.getElementById('prevTimerWrap').style.display = timerMode === 'none' ? 'none' : 'flex';
+
+      const btnEnabled = document.getElementById('inBtnEnabled').checked;
+      const btnEl = document.getElementById('prevBtn1');
+      btnEl.style.display = btnEnabled ? 'block' : 'none';
+      btnEl.textContent = document.getElementById('inBtn1Text').value || 'ปุ่มลิงก์';
+      btnEl.href = document.getElementById('inBtn1Url').value || '#';
+    }
+
+    function saveStatus() {
+      const data = {
+        type: document.getElementById('inType').value,
+        first: document.getElementById('inFirstLine').value,
+        second: document.getElementById('inSecondLine').value,
+        timerMode: document.getElementById('inTimerMode').value,
+        art: document.getElementById('inArt').value,
+        hover: document.getElementById('inHover').value,
+        btnEnabled: document.getElementById('inBtnEnabled').checked,
+        btn1Text: document.getElementById('inBtn1Text').value,
+        btn1Url: document.getElementById('inBtn1Url').value
+      };
+      localStorage.setItem('snowfall_status', JSON.stringify(data));
+      alert('บันทึกการตั้งค่าเรียบร้อยแล้วครับ');
+    }
+
+    function resetStatus() {
+      localStorage.removeItem('snowfall_status');
+      document.getElementById('inType').value = 'กำลังเล่น';
+      document.getElementById('inFirstLine').value = '♡ ~ ♪';
+      document.getElementById('inSecondLine').value = 'sweet • kitty';
+      document.getElementById('inTimerMode').value = 'up';
+      document.getElementById('inArt').value = '🐱';
+      document.getElementById('inHover').value = 'น่ารักที่สุดเลย';
+      document.getElementById('inBtnEnabled').checked = true;
+      document.getElementById('inBtn1Text').value = 'เข้าเซิร์ฟเวอร์';
+      document.getElementById('inBtn1Url').value = 'https://discord.gg';
+      renderPreview();
+    }
+
+    function loadSavedStatus() {
+      const raw = localStorage.getItem('snowfall_status');
+      if (!raw) return;
+      try {
+        const d = JSON.parse(raw);
+        if (d.type) document.getElementById('inType').value = d.type;
+        if (d.first !== undefined) document.getElementById('inFirstLine').value = d.first;
+        if (d.second !== undefined) document.getElementById('inSecondLine').value = d.second;
+        if (d.timerMode) document.getElementById('inTimerMode').value = d.timerMode;
+        if (d.art !== undefined) document.getElementById('inArt').value = d.art;
+        if (d.hover !== undefined) document.getElementById('inHover').value = d.hover;
+        if (d.btnEnabled !== undefined) document.getElementById('inBtnEnabled').checked = d.btnEnabled;
+        if (d.btn1Text !== undefined) document.getElementById('inBtn1Text').value = d.btn1Text;
+        if (d.btn1Url !== undefined) document.getElementById('inBtn1Url').value = d.btn1Url;
+      } catch (_) {}
+    }
+
+    function renderTemplates() {
+      const q = (document.getElementById('tplSearch').value || '').toLowerCase().trim();
+      const filtered = templatesData.filter(t =>
+        t.title.toLowerCase().includes(q) || t.first.toLowerCase().includes(q) || t.second.toLowerCase().includes(q)
+      );
+      document.getElementById('templatesList').innerHTML = filtered.map((t, idx) => `
+        <div class="tpl-card">
+          <div style="font-weight:700; font-size:15px; margin-bottom:6px;">${t.title}</div>
+          <div style="font-size:12px; color:#b7afc7;">${t.first}</div>
+          <div style="font-size:12px; color:#9b92ad; margin-bottom:10px;">${t.second}</div>
+          <button class="btn btn-secondary" style="width:100%;" onclick="useTemplate(${idx})">ใช้เทมเพลตนี้</button>
+        </div>
+      `).join('');
+    }
+
+    function useTemplate(idx) {
+      const t = templatesData[idx];
+      if (!t) return;
+      document.getElementById('inType').value = t.type;
+      document.getElementById('inFirstLine').value = t.first;
+      document.getElementById('inSecondLine').value = t.second;
+      document.getElementById('inArt').value = t.art;
+      renderPreview();
+      switchTab('status');
+    }
+
+    function setRating(star) {
+      currentRating = star;
+      document.querySelectorAll('#starPicker .star-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i < star);
+      });
+    }
+
+    function addReview() {
+      const text = document.getElementById('reviewText').value.trim();
+      if (!text) return alert('กรุณาพิมพ์ข้อความรีวิวก่อนครับ');
+      const anon = document.getElementById('reviewAnon').checked;
+      const userLabel = document.getElementById('sideName').textContent || 'ผู้ใช้งาน';
+      reviewsData.unshift({
+        author: anon ? 'ไม่ระบุตัวตน' : userLabel,
+        rating: currentRating,
+        text
+      });
+      localStorage.setItem('snowfall_reviews', JSON.stringify(reviewsData));
+      document.getElementById('reviewText').value = '';
+      renderReviews();
+    }
+
+    function renderReviews() {
+      document.getElementById('reviewsList').innerHTML = reviewsData.map(r => `
+        <div style="border-top:1px solid #2c2736; padding:12px 0;">
+          <div class="row-between">
+            <strong style="font-size:13px;">${r.author}</strong>
+            <span style="color:#f5b942; font-size:13px;">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
+          </div>
+          <div style="font-size:13px; color:#d7d0e6; margin-top:5px;">${r.text}</div>
+        </div>
+      `).join('');
+    }
+
+    function submitReport() {
+      const topic = document.getElementById('reportTopic').value.trim();
+      const detail = document.getElementById('reportDetail').value.trim();
+      if (!topic || !detail) return alert('กรุณากรอกหัวข้อและรายละเอียดให้ครบครับ');
+      document.getElementById('reportTopic').value = '';
+      document.getElementById('reportDetail').value = '';
+      alert('ส่งรายงานเรียบร้อยแล้วครับ');
+    }
 
     let seconds = 0;
     setInterval(() => {
@@ -320,47 +671,29 @@
       document.getElementById('timerText').textContent = `${m}:${s}`;
     }, 1000);
 
-    function toggleEditor() {
-      document.getElementById('editorBox').classList.toggle('show');
-    }
-
-    function applyChanges() {
-      const title = document.getElementById('inTitle').value.trim() || '.sweet kitty';
-      const details = document.getElementById('inDetails').value.trim() || '♡ ~ ♪';
-      const state = document.getElementById('inState').value.trim() || 'sweet • kitty';
-
-      document.getElementById('tplTitle').textContent = title;
-      document.getElementById('prevDetails').textContent = details;
-      document.getElementById('prevState').textContent = state;
-    }
-
-    function copyTemplateText() {
-      const text = `${document.getElementById('tplTitle').textContent} - ${document.getElementById('prevDetails').textContent} (${document.getElementById('prevState').textContent})`;
-      navigator.clipboard?.writeText(text);
-      alert('คัดลอกข้อมูลเทมเพลตเรียบร้อยแล้วครับ');
-    }
-
     const params = new URLSearchParams(window.location.search);
     const username = params.get('username');
     const globalName = params.get('global_name');
     const userId = params.get('id');
     const avatar = params.get('avatar');
-
     if (username) {
       const display = globalName || username;
       const avatarUrl = avatar
         ? `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`
         : 'https://cdn.discordapp.com/embed/avatars/0.png';
-
       document.getElementById('sideName').textContent = display;
       document.getElementById('sideHandle').textContent = `@${username}`;
       document.getElementById('sideAvatar').src = avatarUrl;
-
       document.getElementById('cardDisplayName').textContent = display;
       document.getElementById('cardUsername').textContent = username;
       document.getElementById('cardAvatar').src = avatarUrl;
-      document.getElementById('authBtn').textContent = 'Connected with Discord ✓';
+      document.getElementById('authBtn').textContent = 'เชื่อมต่อ Discord แล้ว ✓';
     }
+
+    loadSavedStatus();
+    renderPreview();
+    renderTemplates();
+    renderReviews();
   </script>
 </body>
 </html>
