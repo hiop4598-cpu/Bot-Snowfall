@@ -53,25 +53,9 @@
       padding: 10px;
       margin-top: 10px;
     }
-    .owner-label {
-      font-size: 11px;
-      color: #9b92ad;
-      margin-bottom: 4px;
-    }
-    .owner-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-    }
-    .owner-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: #e6dff5;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+    .owner-label { font-size: 11px; color: #9b92ad; margin-bottom: 4px; }
+    .owner-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .owner-name { font-size: 13px; font-weight: 700; color: #e6dff5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .mini-btn {
       background: #282334;
       color: #e6dff5;
@@ -99,23 +83,9 @@
       object-fit: cover;
       flex-shrink: 0;
     }
-    .main {
-      flex: 1;
-      padding: 20px 24px;
-      overflow-y: auto;
-    }
-    .top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-    }
-    .breadcrumb {
-      color: #b7afc7;
-      font-size: 13px;
-    }
+    .main { flex: 1; padding: 20px 24px; overflow-y: auto; }
+    .top-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+    .breadcrumb { color: #b7afc7; font-size: 13px; }
     .status-toggle-wrap {
       display: flex;
       align-items: center;
@@ -126,12 +96,7 @@
       border-radius: 10px;
       font-size: 13px;
     }
-    .grid-editor {
-      display: grid;
-      grid-template-columns: 1fr 350px;
-      gap: 20px;
-      align-items: start;
-    }
+    .grid-editor { display: grid; grid-template-columns: 1fr 350px; gap: 20px; align-items: start; }
     @media (max-width: 860px) {
       body { flex-direction: column; }
       .sidebar { width: 100%; border-right: none; border-bottom: 1px solid #2c2736; }
@@ -144,22 +109,9 @@
       padding: 18px;
       margin-bottom: 14px;
     }
-    .section-title {
-      font-size: 15px;
-      font-weight: 700;
-      margin: 0 0 8px;
-    }
-    .sub-desc {
-      font-size: 12px;
-      color: #9b92ad;
-      margin: 0 0 10px;
-    }
-    .field-label {
-      display: block;
-      font-size: 12px;
-      color: #b7afc7;
-      margin: 10px 0 5px;
-    }
+    .section-title { font-size: 15px; font-weight: 700; margin: 0 0 8px; }
+    .sub-desc { font-size: 12px; color: #9b92ad; margin: 0 0 10px; }
+    .field-label { display: block; font-size: 12px; color: #b7afc7; margin: 10px 0 5px; }
     input[type="text"], select, textarea {
       width: 100%;
       background: #141218;
@@ -170,12 +122,7 @@
       font-size: 13px;
       font-family: inherit;
     }
-    .row-between {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
+    .row-between { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .btn {
       padding: 10px 14px;
       border-radius: 9px;
@@ -186,12 +133,7 @@
     }
     .btn-primary { background: #6d5dfc; color: #fff; }
     .btn-secondary { background: #282334; color: #e6dff5; border: 1px solid #39324a; }
-    .pic-picker-row {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-top: 8px;
-    }
+    .pic-picker-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
     .pic-thumb-box {
       width: 66px;
       height: 66px;
@@ -205,25 +147,10 @@
       overflow: hidden;
       flex-shrink: 0;
     }
-    .pic-thumb-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .preview-card {
-      background: #1b1821;
-      border: 1px solid #2c2736;
-      border-radius: 14px;
-      overflow: hidden;
-    }
-    .preview-card.phone-mode {
-      max-width: 310px;
-      margin: 0 auto;
-    }
-    .banner {
-      height: 76px;
-      background: linear-gradient(135deg, #4b3f72, #2b2340);
-    }
+    .pic-thumb-box img { width: 100%; height: 100%; object-fit: cover; }
+    .preview-card { background: #1b1821; border: 1px solid #2c2736; border-radius: 14px; overflow: hidden; }
+    .preview-card.phone-mode { max-width: 310px; margin: 0 auto; }
+    .banner { height: 76px; background: linear-gradient(135deg, #4b3f72, #2b2340); }
     .profile-body { padding: 0 16px 16px; }
     .profile-avatar {
       width: 64px;
@@ -241,18 +168,8 @@
       border-radius: 12px;
       padding: 12px;
     }
-    .activity-content {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-top: 8px;
-    }
-    .art-wrap {
-      position: relative;
-      width: 64px;
-      height: 64px;
-      flex-shrink: 0;
-    }
+    .activity-content { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
+    .art-wrap { position: relative; width: 64px; height: 64px; flex-shrink: 0; }
     .activity-art {
       width: 64px;
       height: 64px;
@@ -264,11 +181,7 @@
       font-size: 26px;
       overflow: hidden;
     }
-    .activity-art img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .activity-art img { width: 100%; height: 100%; object-fit: cover; }
     .small-badge {
       position: absolute;
       right: -5px;
@@ -284,11 +197,7 @@
       font-size: 13px;
       overflow: hidden;
     }
-    .small-badge img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .small-badge img { width: 100%; height: 100%; object-fit: cover; }
     .timer-row {
       font-size: 12px;
       font-weight: 600;
@@ -298,28 +207,12 @@
       align-items: center;
       gap: 6px;
     }
-    .templates-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 14px;
-      margin-top: 14px;
-    }
-    .tpl-card {
-      background: #1b1821;
-      border: 1px solid #2c2736;
-      border-radius: 12px;
-      padding: 14px;
-    }
-    .star-btn {
-      background: transparent;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      color: #6b637d;
-      padding: 0 2px;
-    }
+    .templates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 14px; }
+    .tpl-card { background: #1b1821; border: 1px solid #2c2736; border-radius: 12px; padding: 14px; }
+    .star-btn { background: transparent; border: none; font-size: 20px; cursor: pointer; color: #6b637d; padding: 0 2px; }
     .star-btn.active { color: #f5b942; }
     .hidden { display: none; }
+    .feedback-msg { font-size: 12px; color: #7ad39b; margin-top: 6px; min-height: 16px; }
   </style>
 </head>
 <body>
@@ -341,9 +234,12 @@
     </div>
 
     <div>
-      <a id="authBtn" class="btn btn-primary" style="display:block; text-align:center; text-decoration:none; margin-bottom:10px;" href="#">
+      <a id="authBtn" class="btn btn-primary" style="display:block; text-align:center; text-decoration:none; margin-bottom:8px;" href="#">
         เชื่อมต่อ Discord
       </a>
+      <button class="btn btn-secondary" style="width:100%; margin-bottom:10px; font-size:12px;" onclick="quickLoginDemo()">
+        กรอกชื่อ/รูปโปรไฟล์เอง
+      </button>
       <div class="user-box">
         <img id="sideAvatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" />
         <div>
@@ -393,20 +289,22 @@
 
           <div class="panel">
             <h2 class="section-title">รูปภาพหลัก & GIF</h2>
-            <p class="sub-desc">รองรับอีโมจิ ลิงก์รูปภาพ หรืออัปโหลดไฟล์รูป/GIF จากเครื่อง</p>
+            <p class="sub-desc">เลือกไฟล์รูป/GIF จากเครื่อง หรือวางลิงก์รูป/GIF หรือพิมพ์อีโมจิ แล้วดูผลที่การ์ดด้านขวาได้ทันที</p>
 
             <div class="pic-picker-row">
               <div id="mainThumbBox" class="pic-thumb-box">🐱</div>
               <div>
                 <button class="btn btn-secondary" type="button" onclick="document.getElementById('mainFileInput').click()">
-                  เปลี่ยนรูป / GIF (change)
+                  เลือกไฟล์รูป / GIF
                 </button>
+                <button class="mini-btn" type="button" onclick="clearMedia('main')">กลับเป็นอีโมจิ 🐱</button>
                 <input id="mainFileInput" type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'main')" />
               </div>
             </div>
 
             <label class="field-label">ลิงก์รูปภาพ / GIF หรืออีโมจิ</label>
             <input id="inArt" type="text" value="🐱" oninput="renderPreview()" />
+            <div id="mainArtStatus" class="feedback-msg"></div>
 
             <label class="field-label">ข้อความเมื่อชี้รูป (Hover text)</label>
             <input id="inHover" type="text" value="น่ารักที่สุดเลย" oninput="renderPreview()" />
@@ -423,8 +321,9 @@
               <div id="smallThumbBox" class="pic-thumb-box" style="width:46px; height:46px; font-size:18px;">✨</div>
               <div>
                 <button class="btn btn-secondary" type="button" onclick="document.getElementById('smallFileInput').click()">
-                  เลือกรูปเล็ก
+                  เลือกรูปเล็ก / GIF
                 </button>
+                <button class="mini-btn" type="button" onclick="clearMedia('small')">กลับเป็นอีโมจิ ✨</button>
                 <input id="smallFileInput" type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'small')" />
               </div>
             </div>
@@ -453,6 +352,7 @@
             <button class="btn btn-primary" onclick="saveStatus()">บันทึกการตั้งค่า</button>
             <button class="btn btn-secondary" onclick="resetStatus()">รีเซ็ตค่าเริ่มต้น</button>
           </div>
+          <div id="saveMsg" class="feedback-msg"></div>
         </div>
 
         <aside>
@@ -589,6 +489,26 @@
       }
     }
 
+    function applyUserProfile(display, handleText, avatarUrl) {
+      document.getElementById('sideName').textContent = display;
+      document.getElementById('sideHandle').textContent = handleText;
+      document.getElementById('sideAvatar').src = avatarUrl;
+      document.getElementById('cardDisplayName').textContent = display;
+      document.getElementById('cardUsername').textContent = handleText;
+      document.getElementById('cardAvatar').src = avatarUrl;
+      document.getElementById('authBtn').textContent = 'เชื่อมต่อ Discord แล้ว ✓';
+    }
+
+    function quickLoginDemo() {
+      const name = prompt('พิมพ์ชื่อที่ต้องการแสดงบนโปรไฟล์:', document.getElementById('cardDisplayName').textContent || 'ผู้ใช้งาน');
+      if (!name || !name.trim()) return;
+      const cleanName = name.trim();
+      const avatarInput = prompt('วางลิงก์รูปโปรไฟล์ (หรือเว้นว่างไว้ใช้รูปเริ่มต้น):', '');
+      const avatarUrl = (avatarInput && avatarInput.trim()) ? avatarInput.trim() : 'https://cdn.discordapp.com/embed/avatars/0.png';
+      localStorage.setItem('snowfall_profile', JSON.stringify({ display: cleanName, handle: `@${cleanName.toLowerCase().replace(/\s+/g, '_')}`, avatar: avatarUrl }));
+      applyUserProfile(cleanName, `@${cleanName.toLowerCase().replace(/\s+/g, '_')}`, avatarUrl);
+    }
+
     const tabNames = {
       status: 'สถานะของคุณ',
       templates: 'เทมเพลต',
@@ -610,6 +530,16 @@
       document.getElementById('previewCard').classList.toggle('phone-mode', mode === 'phone');
     }
 
+    function clearMedia(target) {
+      if (target === 'main') {
+        document.getElementById('inArt').value = '🐱';
+        document.getElementById('mainArtStatus').textContent = 'เปลี่ยนกลับเป็นอีโมจิ 🐱 แล้วครับ';
+      } else {
+        document.getElementById('inSmallArt').value = '✨';
+      }
+      renderPreview();
+    }
+
     function handleFileUpload(event, target) {
       const file = event.target.files?.[0];
       if (!file) return;
@@ -617,10 +547,217 @@
       reader.onload = () => {
         if (target === 'main') {
           document.getElementById('inArt').value = reader.result;
+          document.getElementById('mainArtStatus').textContent = `โหลดไฟล์ "${file.name}" ขึ้นการ์ดแล้วครับ`;
         } else {
           document.getElementById('inSmallArt').value = reader.result;
         }
         renderPreview();
       };
       reader.readAsDataURL(file);
-    
+    }
+
+    function setVisualContent(el, thumbEl, val, fallback) {
+      const clean = (val || fallback).trim();
+      const isMedia = clean.startsWith('http://') || clean.startsWith('https://') || clean.startsWith('data:image/');
+      if (isMedia) {
+        const html = `<img src="${clean}" alt="media" />`;
+        el.innerHTML = html;
+        if (thumbEl) thumbEl.innerHTML = html;
+      } else {
+        el.textContent = clean;
+        if (thumbEl) thumbEl.textContent = clean;
+      }
+    }
+
+    function renderPreview() {
+      const enabled = document.getElementById('statusEnabled').checked;
+      document.getElementById('statusToggleText').textContent = enabled ? 'เปิดใช้งานสถานะแล้ว' : 'ปิดใช้งานสถานะแล้ว';
+      document.getElementById('activityBox').style.opacity = enabled ? '1' : '0.4';
+
+      document.getElementById('prevType').textContent = document.getElementById('inType').value;
+      document.getElementById('prevFirst').textContent = document.getElementById('inFirstLine').value || ' ';
+      document.getElementById('prevSecond').textContent = document.getElementById('inSecondLine').value || ' ';
+
+      const mainHover = document.getElementById('inHover').value || '';
+      document.getElementById('prevArt').title = mainHover;
+      setVisualContent(document.getElementById('prevArt'), document.getElementById('mainThumbBox'), document.getElementById('inArt').value, '🐱');
+
+      const smallEnabled = document.getElementById('inSmallEnabled').checked;
+      const smallBadge = document.getElementById('prevSmallArt');
+      smallBadge.style.display = smallEnabled ? 'flex' : 'none';
+      smallBadge.title = document.getElementById('inSmallHover').value || '';
+      setVisualContent(smallBadge, document.getElementById('smallThumbBox'), document.getElementById('inSmallArt').value, '✨');
+
+      const timerMode = document.getElementById('inTimerMode').value;
+      document.getElementById('prevTimerWrap').style.display = timerMode === 'none' ? 'none' : 'flex';
+
+      const btnEnabled = document.getElementById('inBtnEnabled').checked;
+      const btnEl = document.getElementById('prevBtn1');
+      btnEl.style.display = btnEnabled ? 'block' : 'none';
+      btnEl.textContent = document.getElementById('inBtn1Text').value || 'ปุ่มลิงก์';
+      btnEl.href = document.getElementById('inBtn1Url').value || '#';
+    }
+
+    function saveStatus() {
+      const data = {
+        type: document.getElementById('inType').value,
+        first: document.getElementById('inFirstLine').value,
+        second: document.getElementById('inSecondLine').value,
+        timerMode: document.getElementById('inTimerMode').value,
+        art: document.getElementById('inArt').value,
+        hover: document.getElementById('inHover').value,
+        smallEnabled: document.getElementById('inSmallEnabled').checked,
+        smallArt: document.getElementById('inSmallArt').value,
+        smallHover: document.getElementById('inSmallHover').value,
+        btnEnabled: document.getElementById('inBtnEnabled').checked,
+        btn1Text: document.getElementById('inBtn1Text').value,
+        btn1Url: document.getElementById('inBtn1Url').value
+      };
+      try {
+        localStorage.setItem('snowfall_status', JSON.stringify(data));
+        document.getElementById('saveMsg').textContent = 'บันทึกการตั้งค่าลงเบราว์เซอร์เรียบร้อยแล้วครับ';
+      } catch (_) {
+        document.getElementById('saveMsg').textContent = 'แสดงผลบนการ์ดแล้วครับ (ไฟล์ GIF ใหญ่เกินพื้นที่เก็บถาวร แนะนำใช้ลิงก์ GIF แทน)';
+      }
+    }
+
+    function resetStatus() {
+      localStorage.removeItem('snowfall_status');
+      document.getElementById('inType').value = 'กำลังเล่น';
+      document.getElementById('inFirstLine').value = '♡ ~ ♪';
+      document.getElementById('inSecondLine').value = 'sweet • kitty';
+      document.getElementById('inTimerMode').value = 'up';
+      document.getElementById('inArt').value = '🐱';
+      document.getElementById('inHover').value = 'น่ารักที่สุดเลย';
+      document.getElementById('inSmallEnabled').checked = true;
+      document.getElementById('inSmallArt').value = '✨';
+      document.getElementById('inSmallHover').value = 'สติกเกอร์เล็กๆ';
+      document.getElementById('inBtnEnabled').checked = true;
+      document.getElementById('inBtn1Text').value = 'เข้าเซิร์ฟเวอร์';
+      document.getElementById('inBtn1Url').value = 'https://discord.gg';
+      document.getElementById('saveMsg').textContent = 'รีเซ็ตค่าเริ่มต้นเรียบร้อยแล้วครับ';
+      renderPreview();
+    }
+
+    function loadSavedStatus() {
+      const raw = localStorage.getItem('snowfall_status');
+      if (!raw) return;
+      try {
+        const d = JSON.parse(raw);
+        if (d.type) document.getElementById('inType').value = d.type;
+        if (d.first !== undefined) document.getElementById('inFirstLine').value = d.first;
+        if (d.second !== undefined) document.getElementById('inSecondLine').value = d.second;
+        if (d.timerMode) document.getElementById('inTimerMode').value = d.timerMode;
+        if (d.art !== undefined) document.getElementById('inArt').value = d.art;
+        if (d.hover !== undefined) document.getElementById('inHover').value = d.hover;
+        if (d.smallEnabled !== undefined) document.getElementById('inSmallEnabled').checked = d.smallEnabled;
+        if (d.smallArt !== undefined) document.getElementById('inSmallArt').value = d.smallArt;
+        if (d.smallHover !== undefined) document.getElementById('inSmallHover').value = d.smallHover;
+        if (d.btnEnabled !== undefined) document.getElementById('inBtnEnabled').checked = d.btnEnabled;
+        if (d.btn1Text !== undefined) document.getElementById('inBtn1Text').value = d.btn1Text;
+        if (d.btn1Url !== undefined) document.getElementById('inBtn1Url').value = d.btn1Url;
+      } catch (_) {}
+    }
+
+    function renderTemplates() {
+      const q = (document.getElementById('tplSearch').value || '').toLowerCase().trim();
+      const filtered = templatesData.filter(t =>
+        t.title.toLowerCase().includes(q) || t.first.toLowerCase().includes(q) || t.second.toLowerCase().includes(q)
+      );
+      document.getElementById('templatesList').innerHTML = filtered.map((t, idx) => `
+        <div class="tpl-card">
+          <div style="font-weight:700; font-size:15px; margin-bottom:6px;">${t.title}</div>
+          <div style="font-size:12px; color:#b7afc7;">${t.first}</div>
+          <div style="font-size:12px; color:#9b92ad; margin-bottom:10px;">${t.second}</div>
+          <button class="btn btn-secondary" style="width:100%;" onclick="useTemplate(${idx})">ใช้เทมเพลตนี้</button>
+        </div>
+      `).join('');
+    }
+
+    function useTemplate(idx) {
+      const t = templatesData[idx];
+      if (!t) return;
+      document.getElementById('inType').value = t.type;
+      document.getElementById('inFirstLine').value = t.first;
+      document.getElementById('inSecondLine').value = t.second;
+      document.getElementById('inArt').value = t.art;
+      document.getElementById('inSmallArt').value = t.small;
+      renderPreview();
+      switchTab('status');
+    }
+
+    function setRating(star) {
+      currentRating = star;
+      document.querySelectorAll('#starPicker .star-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i < star);
+      });
+    }
+
+    function addReview() {
+      const text = document.getElementById('reviewText').value.trim();
+      if (!text) return alert('กรุณาพิมพ์ข้อความรีวิวก่อนครับ');
+      const anon = document.getElementById('reviewAnon').checked;
+      const userLabel = document.getElementById('sideName').textContent || 'ผู้ใช้งาน';
+      reviewsData.unshift({
+        author: anon ? 'ไม่ระบุตัวตน' : userLabel,
+        rating: currentRating,
+        text
+      });
+      localStorage.setItem('snowfall_reviews', JSON.stringify(reviewsData));
+      document.getElementById('reviewText').value = '';
+      renderReviews();
+    }
+
+    function renderReviews() {
+      document.getElementById('reviewsList').innerHTML = reviewsData.map(r => `
+        <div style="border-top:1px solid #2c2736; padding:12px 0;">
+          <div class="row-between">
+            <strong style="font-size:13px;">${r.author}</strong>
+            <span style="color:#f5b942; font-size:13px;">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
+          </div>
+          <div style="font-size:13px; color:#d7d0e6; margin-top:5px;">${r.text}</div>
+        </div>
+      `).join('');
+    }
+
+    function submitReport() {
+      const topic = document.getElementById('reportTopic').value.trim();
+      const detail = document.getElementById('reportDetail').value.trim();
+      if (!topic || !detail) return alert('กรุณากรอกหัวข้อและรายละเอียดให้ครบครับ');
+      document.getElementById('reportTopic').value = '';
+      document.getElementById('reportDetail').value = '';
+      alert('ส่งรายงานเรียบร้อยแล้วครับ');
+    }
+
+    let seconds = 0;
+    setInterval(() => {
+      seconds += 1;
+      const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const s = String(seconds % 60).padStart(2, '0');
+      document.getElementById('timerText').textContent = `${m}:${s}`;
+    }, 1000);
+
+    const params = new URLSearchParams(window.location.search);
+    const username = params.get('username');
+    const globalName = params.get('global_name');
+    const userId = params.get('id');
+    const avatar = params.get('avatar');
+    const savedProfile = JSON.parse(localStorage.getItem('snowfall_profile') || 'null');
+
+    if (username) {
+      const display = globalName || username;
+      const avatarUrl = avatar
+        ? `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`
+        : 'https://cdn.discordapp.com/embed/avatars/0.png';
+      applyUserProfile(display, `@${username}`, avatarUrl);
+    } else if (savedProfile && savedProfile.display) {
+      applyUserProfile(savedProfile.display, savedProfile.handle || '', savedProfile.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png');
+    }
+
+    loadSavedStatus();
+    renderPreview();
+    renderTemplates();
+    renderReviews();
+  </script>
+</body>
+</html>
