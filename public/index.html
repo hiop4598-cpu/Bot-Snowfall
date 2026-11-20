@@ -14,6 +14,8 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
+      padding: 16px;
+      box-sizing: border-box;
     }
     .card {
       background: #1b1f29;
@@ -23,7 +25,8 @@
       max-width: 420px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
-    input, button {
+    input, button, a.btn {
+      display: block;
       width: 100%;
       padding: 10px 12px;
       margin-top: 10px;
@@ -31,17 +34,27 @@
       border: 1px solid #2e3546;
       box-sizing: border-box;
       font-size: 14px;
+      text-align: center;
+      text-decoration: none;
     }
     input {
       background: #111318;
       color: #fff;
+      text-align: left;
     }
     button {
-      background: #5865F2;
+      background: #2b3142;
       color: #fff;
       border: none;
       font-weight: bold;
       cursor: pointer;
+    }
+    a.btn-discord {
+      background: #5865F2;
+      color: #fff;
+      border: none;
+      font-weight: bold;
+      margin-top: 14px;
     }
     .preview {
       margin-top: 18px;
@@ -55,15 +68,23 @@
 <body>
   <div class="card">
     <h2>Bot Snowfall Status</h2>
-    <p>ตั้งค่าข้อความ Status ของคุณและเชื่อมต่อ Discord</p>
+    <p style="color:#b5bac1; font-size:14px;">ตั้งค่าข้อความ Status ของคุณและเชื่อมต่อ Discord</p>
 
     <label>หัวข้อ / รายละเอียด Status</label>
     <input id="detailsInput" type="text" placeholder="เช่น กำลังฟังเพลงอยู่..." />
 
-    <label>สถานะย่อย</label>
+    <label style="display:block; margin-top:10px;">สถานะย่อย</label>
     <input id="stateInput" type="text" placeholder="เช่น Bot Snowfall" />
 
     <button onclick="savePreview()">อัปเดตตัวอย่าง Status</button>
+
+    <a
+      id="discordAuthBtn"
+      class="btn btn-discord"
+      href="#"
+    >
+      เชื่อมต่อ Discord (Authorize)
+    </a>
 
     <div class="preview">
       <div><strong id="outDetails">กำลังฟังเพลงอยู่...</strong></div>
@@ -72,6 +93,12 @@
   </div>
 
   <script>
+    const CLIENT_ID = '1573366716535406622';
+    const REDIRECT_URI = encodeURIComponent('https://bot-snowfall.onrender.com/callback');
+    const AUTH_URL = `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&scope=identify`;
+
+    document.getElementById('discordAuthBtn').href = AUTH_URL;
+
     function savePreview() {
       const d = document.getElementById('detailsInput').value || 'กำลังฟังเพลงอยู่...';
       const s = document.getElementById('stateInput').value || 'Bot Snowfall';
