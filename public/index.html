@@ -190,7 +190,7 @@
       overflow: hidden;
       flex-shrink: 0;
     }
-    .pic-thumb-box img { width: 100%; height: 100%; object-fit: cover; }
+    .pic-thumb-box img { width: 100%; height: 100%; object-fit: cover; transform: translateZ(0); will-change: transform; }
     .preview-card {
       background: #ffffff;
       border: 1px solid #d4e9fc;
@@ -248,7 +248,7 @@
       font-size: 26px;
       overflow: hidden;
     }
-    .activity-art img { width: 100%; height: 100%; object-fit: cover; }
+    .activity-art img { width: 100%; height: 100%; object-fit: cover; transform: translateZ(0); will-change: transform; }
     .small-badge {
       position: absolute;
       right: -5px;
@@ -267,7 +267,7 @@
     .small-badge.badge-bottom-left { right: auto; left: -5px; bottom: -5px; }
     .small-badge.badge-top-right { right: -5px; bottom: auto; top: -5px; }
     .small-badge.badge-top-left { right: auto; left: -5px; bottom: auto; top: -5px; }
-    .small-badge img { width: 100%; height: 100%; object-fit: cover; }
+    .small-badge img { width: 100%; height: 100%; object-fit: cover; transform: translateZ(0); will-change: transform; }
     .timer-row {
       font-size: 12px;
       font-weight: 700;
@@ -675,7 +675,7 @@
       reader.onload = () => {
         if (target === 'main') {
           document.getElementById('inArt').value = reader.result;
-          document.getElementById('mainArtStatus').textContent = `โหลดไฟล์ "${file.name}" ขึ้นการ์ดแล้วครับ`;
+          document.getElementById('mainArtStatus').textContent = `โหลดไฟล์ "${file.name}" ขึ้นการ์ดแล้วครับ (หาก GIF ใหญ่แล้วค้างบน Safari แนะนำใช้ลิงก์ GIF แทนครับ)`;
         } else {
           document.getElementById('inSmallArt').value = reader.result;
         }
@@ -693,8 +693,8 @@
       const clean = (val || fallback).trim();
       if (isImageSource(clean)) {
         const html = `<img src="${clean}" alt="media" />`;
-        el.innerHTML = html;
-        if (thumbEl) thumbEl.innerHTML = html;
+        if (el.innerHTML !== html) el.innerHTML = html;
+        if (thumbEl && thumbEl.innerHTML !== html) thumbEl.innerHTML = html;
       } else {
         el.textContent = clean;
         if (thumbEl) thumbEl.textContent = clean;
