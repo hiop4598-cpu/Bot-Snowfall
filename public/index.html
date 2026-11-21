@@ -190,7 +190,7 @@
       overflow: hidden;
       flex-shrink: 0;
     }
-    .pic-thumb-box img { width: 100%; height: 100%; object-fit: cover; transform: translateZ(0); will-change: transform; }
+    .pic-thumb-box img { width: 100%; height: 100%; object-fit: cover; transform: translateZ(0); }
     .preview-card {
       background: #ffffff;
       border: 1px solid #d4e9fc;
@@ -248,7 +248,7 @@
       font-size: 26px;
       overflow: hidden;
     }
-    .activity-art img { width: 100%; height: 100%; object-fit: cover; transform: translateZ(0); will-change: transform; }
+    .activity-art img { width: 100%; height: 100%; object-fit: cover; transform: translateZ(0); }
     .small-badge {
       position: absolute;
       right: -5px;
@@ -267,7 +267,7 @@
     .small-badge.badge-bottom-left { right: auto; left: -5px; bottom: -5px; }
     .small-badge.badge-top-right { right: -5px; bottom: auto; top: -5px; }
     .small-badge.badge-top-left { right: auto; left: -5px; bottom: auto; top: -5px; }
-    .small-badge img { width: 100%; height: 100%; object-fit: cover; transform: translateZ(0); will-change: transform; }
+    .small-badge img { width: 100%; height: 100%; object-fit: cover; transform: translateZ(0); }
     .timer-row {
       font-size: 12px;
       font-weight: 700;
@@ -397,7 +397,7 @@
 
           <div class="panel">
             <h2 class="section-title">รูปภาพหลัก & GIF (pictures)</h2>
-            <p class="sub-desc">รองรับลิงก์รูปภาพ/GIF อีโมจิ หรือเลือกไฟล์รูป/GIF จากเครื่อง</p>
+            <p class="sub-desc">พิมพ์ลิงก์รูปภาพ/GIF อีโมจิ หรือกดปุ่มอัปเดตพรีวิว/ล้างช่องได้สะดวกไม่ค้าง</p>
 
             <div class="pic-picker-row">
               <div id="mainThumbBox" class="pic-thumb-box">🐱</div>
@@ -405,13 +405,14 @@
                 <button class="btn btn-secondary" type="button" onclick="document.getElementById('mainFileInput').click()">
                   เปลี่ยนรูป / GIF
                 </button>
-                <button class="mini-btn" type="button" onclick="clearMedia('main')">กลับเป็นอีโมจิ</button>
+                <button class="mini-btn" type="button" onclick="clearMediaInput('main')">ล้างช่อง / อีโมจิ</button>
+                <button class="mini-btn" type="button" onclick="renderPreview()">อัปเดตพรีวิว</button>
                 <input id="mainFileInput" type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'main')" />
               </div>
             </div>
 
             <label class="field-label">ลิงก์รูปภาพ / GIF หรืออีโมจิ</label>
-            <input id="inArt" type="text" value="🐱" oninput="renderPreview()" />
+            <input id="inArt" type="text" value="🐱" onchange="renderPreview()" />
             <div id="mainArtStatus" class="feedback-msg"></div>
 
             <label class="field-label">ตำแหน่งกรอบรูปหลัก</label>
@@ -422,7 +423,7 @@
             </select>
 
             <label class="field-label">ข้อความเมื่อชี้รูป (hover text)</label>
-            <input id="inHover" type="text" value="น่ารักที่สุดเลย" oninput="renderPreview()" />
+            <input id="inHover" type="text" value="น่ารักที่สุดเลย" onchange="renderPreview()" />
 
             <div class="row-between" style="margin-top:16px; padding-top:14px; border-top:1px solid #d4e9fc;">
               <div>
@@ -438,13 +439,14 @@
                 <button class="btn btn-secondary" type="button" onclick="document.getElementById('smallFileInput').click()">
                   เลือกรูปเล็ก / GIF
                 </button>
-                <button class="mini-btn" type="button" onclick="clearMedia('small')">กลับเป็นอีโมจิ</button>
+                <button class="mini-btn" type="button" onclick="clearMediaInput('small')">ล้างช่อง / อีโมจิ</button>
+                <button class="mini-btn" type="button" onclick="renderPreview()">อัปเดตพรีวิว</button>
                 <input id="smallFileInput" type="file" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'small')" />
               </div>
             </div>
 
             <label class="field-label">ลิงก์รูปเล็กหรืออีโมจิ</label>
-            <input id="inSmallArt" type="text" value="✨" oninput="renderPreview()" />
+            <input id="inSmallArt" type="text" value="✨" onchange="renderPreview()" />
 
             <label class="field-label">ตำแหน่งกรอบรูปเล็ก</label>
             <select id="inSmallPos" onchange="renderPreview()">
@@ -455,7 +457,7 @@
             </select>
 
             <label class="field-label">ข้อความเมื่อชี้รูปเล็ก</label>
-            <input id="inSmallHover" type="text" value="สติกเกอร์เล็กๆ" oninput="renderPreview()" />
+            <input id="inSmallHover" type="text" value="สติกเกอร์เล็กๆ" onchange="renderPreview()" />
           </div>
 
           <div class="panel">
@@ -658,10 +660,10 @@
       document.getElementById('previewCard').classList.toggle('phone-mode', mode === 'phone');
     }
 
-    function clearMedia(target) {
+    function clearMediaInput(target) {
       if (target === 'main') {
         document.getElementById('inArt').value = '🐱';
-        document.getElementById('mainArtStatus').textContent = 'เปลี่ยนกลับเป็นอีโมจิ 🐱 แล้วครับ';
+        document.getElementById('mainArtStatus').textContent = 'ล้างช่องและตั้งเป็นอีโมจิ 🐱 แล้วครับ';
       } else {
         document.getElementById('inSmallArt').value = '✨';
       }
@@ -675,7 +677,7 @@
       reader.onload = () => {
         if (target === 'main') {
           document.getElementById('inArt').value = reader.result;
-          document.getElementById('mainArtStatus').textContent = `โหลดไฟล์ "${file.name}" ขึ้นการ์ดแล้วครับ (หาก GIF ใหญ่แล้วค้างบน Safari แนะนำใช้ลิงก์ GIF แทนครับ)`;
+          document.getElementById('mainArtStatus').textContent = `โหลดไฟล์ "${file.name}" ขึ้นการ์ดแล้วครับ`;
         } else {
           document.getElementById('inSmallArt').value = reader.result;
         }
@@ -692,9 +694,16 @@
     function setVisualContent(el, thumbEl, val, fallback) {
       const clean = (val || fallback).trim();
       if (isImageSource(clean)) {
-        const html = `<img src="${clean}" alt="media" />`;
-        if (el.innerHTML !== html) el.innerHTML = html;
-        if (thumbEl && thumbEl.innerHTML !== html) thumbEl.innerHTML = html;
+        const currentImg = el.querySelector('img');
+        if (!currentImg || currentImg.getAttribute('src') !== clean) {
+          el.innerHTML = `<img src="${clean}" alt="media" />`;
+        }
+        if (thumbEl) {
+          const currentThumb = thumbEl.querySelector('img');
+          if (!currentThumb || currentThumb.getAttribute('src') !== clean) {
+            thumbEl.innerHTML = `<img src="${clean}" alt="media" />`;
+          }
+        }
       } else {
         el.textContent = clean;
         if (thumbEl) thumbEl.textContent = clean;
