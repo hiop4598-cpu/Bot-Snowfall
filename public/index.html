@@ -9,15 +9,15 @@
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif;
-      background: #141218;
-      color: #f3effa;
+      background: linear-gradient(180deg, #eef7ff 0%, #f8fcff 100%);
+      color: #243b53;
       min-height: 100vh;
       display: flex;
     }
     .sidebar {
-      width: 245px;
-      background: #19161f;
-      border-right: 1px solid #292433;
+      width: 248px;
+      background: #e6f3ff;
+      border-right: 1px solid #cce4fa;
       padding: 16px 12px;
       display: flex;
       flex-direction: column;
@@ -29,69 +29,73 @@
       font-weight: 700;
       font-size: 16px;
       padding: 4px 10px 2px;
-      color: #fff;
+      color: #1b365d;
     }
     .brand-sub {
       font-size: 11px;
-      color: #8f87a1;
+      color: #5c7c99;
       padding: 0 10px 12px;
-      border-bottom: 1px solid #292433;
+      border-bottom: 1px solid #cce4fa;
       margin-bottom: 10px;
     }
     .nav-item {
       padding: 9px 12px;
-      border-radius: 8px;
-      color: #aba2bd;
+      border-radius: 10px;
+      color: #3e5c76;
       font-size: 14px;
       margin-bottom: 4px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
-    .nav-item:hover { background: #221e2b; color: #fff; }
-    .nav-item.active { background: #2a2536; color: #fff; font-weight: 600; }
+    .nav-item:hover { background: #d8ecff; color: #1b365d; }
+    .nav-item.active { background: #ffffff; color: #1b365d; font-weight: 700; box-shadow: 0 2px 6px rgba(90, 145, 195, 0.14); }
     .nav-group-title {
       font-size: 11px;
-      color: #7d7491;
+      color: #6b89a6;
       padding: 12px 12px 6px;
-      text-transform: lowercase;
     }
     .nav-link-small {
       display: block;
       padding: 6px 12px;
       font-size: 13px;
-      color: #a39ab5;
+      color: #3e5c76;
       text-decoration: none;
-      border-radius: 7px;
+      border-radius: 8px;
       cursor: pointer;
     }
-    .nav-link-small:hover { background: #221e2b; color: #fff; }
-    .owner-box {
-      background: #131117;
-      border: 1px solid #292433;
-      border-radius: 10px;
-      padding: 10px;
+    .nav-link-small:hover { background: #d8ecff; color: #1b365d; }
+    .creator-link-box {
+      display: block;
+      background: #ffffff;
+      border: 1px solid #b8daf8;
+      border-radius: 12px;
+      padding: 11px 12px;
       margin-top: 10px;
+      text-decoration: none;
+      color: #1b365d;
+      box-shadow: 0 2px 8px rgba(110, 168, 219, 0.14);
     }
-    .owner-label { font-size: 11px; color: #8f87a1; margin-bottom: 4px; }
-    .owner-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-    .owner-name { font-size: 13px; font-weight: 700; color: #efeaff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .creator-link-box:hover {
+      background: #f2f9ff;
+      border-color: #7bb8ee;
+    }
+    .creator-label { font-size: 11px; color: #5c7c99; margin-bottom: 3px; }
+    .creator-title { font-size: 13px; font-weight: 700; color: #1b365d; }
+    .creator-sub { font-size: 11px; color: #3a7bd5; margin-top: 2px; word-break: break-all; }
     .mini-btn {
-      background: #262131;
-      color: #e6dff5;
-      border: 1px solid #383148;
-      border-radius: 6px;
+      background: #ffffff;
+      color: #243b53;
+      border: 1px solid #b8daf8;
+      border-radius: 8px;
       padding: 5px 9px;
       font-size: 11px;
       cursor: pointer;
       flex-shrink: 0;
     }
-    .mini-btn:hover { background: #322c40; }
+    .mini-btn:hover { background: #eef7ff; }
     .user-box {
-      background: #131117;
-      border: 1px solid #292433;
-      border-radius: 10px;
+      background: #ffffff;
+      border: 1px solid #cce4fa;
+      border-radius: 12px;
       padding: 10px;
       display: flex;
       align-items: center;
@@ -101,7 +105,7 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: #5865F2;
+      background: #7bb8ee;
       object-fit: cover;
       flex-shrink: 0;
     }
@@ -114,47 +118,54 @@
       margin-bottom: 18px;
       flex-wrap: wrap;
     }
-    .breadcrumb { color: #a79eb8; font-size: 13px; }
+    .breadcrumb { color: #5c7c99; font-size: 13px; }
     .status-toggle-wrap {
       display: flex;
       align-items: center;
       gap: 10px;
-      background: #19161f;
-      border: 1px solid #292433;
+      background: #ffffff;
+      border: 1px solid #cce4fa;
       padding: 7px 12px;
       border-radius: 10px;
       font-size: 13px;
+      color: #243b53;
     }
     .grid-editor { display: grid; grid-template-columns: 1fr 355px; gap: 22px; align-items: start; }
     @media (max-width: 880px) {
       body { flex-direction: column; }
-      .sidebar { width: 100%; border-right: none; border-bottom: 1px solid #292433; }
+      .sidebar { width: 100%; border-right: none; border-bottom: 1px solid #cce4fa; }
       .grid-editor { grid-template-columns: 1fr; }
     }
     .panel {
-      background: #19161f;
-      border: 1px solid #292433;
-      border-radius: 14px;
+      background: #ffffff;
+      border: 1px solid #d4e9fc;
+      border-radius: 16px;
       padding: 18px;
       margin-bottom: 14px;
+      box-shadow: 0 4px 14px rgba(130, 180, 224, 0.1);
     }
-    .section-title { font-size: 15px; font-weight: 700; margin: 0 0 6px; }
-    .sub-desc { font-size: 12px; color: #8f87a1; margin: 0 0 10px; }
-    .field-label { display: block; font-size: 12px; color: #b7afc7; margin: 10px 0 5px; }
+    .section-title { font-size: 15px; font-weight: 700; margin: 0 0 6px; color: #1b365d; }
+    .sub-desc { font-size: 12px; color: #64829e; margin: 0 0 10px; }
+    .field-label { display: block; font-size: 12px; color: #486581; margin: 10px 0 5px; }
     input[type="text"], select, textarea {
       width: 100%;
-      background: #131117;
-      border: 1px solid #352e45;
-      color: #fff;
-      border-radius: 8px;
+      background: #f5faff;
+      border: 1px solid #c3dff8;
+      color: #1b365d;
+      border-radius: 9px;
       padding: 9px 11px;
       font-size: 13px;
       font-family: inherit;
     }
+    input[readonly] {
+      background: #eaf4fe;
+      color: #486581;
+      cursor: not-allowed;
+    }
     .row-between { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .btn {
       padding: 10px 14px;
-      border-radius: 9px;
+      border-radius: 10px;
       border: none;
       font-size: 13px;
       font-weight: 600;
@@ -162,15 +173,16 @@
       text-decoration: none;
       display: inline-block;
     }
-    .btn-primary { background: #6d5dfc; color: #fff; }
-    .btn-secondary { background: #262131; color: #e6dff5; border: 1px solid #383148; }
+    .btn-primary { background: #5aa9e6; color: #ffffff; }
+    .btn-primary:hover { background: #4697d6; }
+    .btn-secondary { background: #eef7ff; color: #1b365d; border: 1px solid #b8daf8; }
     .pic-picker-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
     .pic-thumb-box {
       width: 68px;
       height: 68px;
-      border-radius: 10px;
-      background: #131117;
-      border: 1px solid #352e45;
+      border-radius: 12px;
+      background: #f2f9ff;
+      border: 1px solid #c3dff8;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -179,11 +191,17 @@
       flex-shrink: 0;
     }
     .pic-thumb-box img { width: 100%; height: 100%; object-fit: cover; }
-    .preview-card { background: #19161f; border: 1px solid #292433; border-radius: 14px; overflow: hidden; }
+    .preview-card {
+      background: #ffffff;
+      border: 1px solid #d4e9fc;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(120, 175, 220, 0.14);
+    }
     .preview-card.phone-mode { max-width: 310px; margin: 0 auto; }
     .banner {
       height: 82px;
-      background: linear-gradient(135deg, #3b3154, #1e192b);
+      background: linear-gradient(135deg, #bfe2ff, #e6f4ff);
       background-size: cover;
       background-position: center;
     }
@@ -192,15 +210,15 @@
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      border: 4px solid #19161f;
+      border: 4px solid #ffffff;
       margin-top: -32px;
-      background: #5865F2;
+      background: #7bb8ee;
       object-fit: cover;
     }
     .activity-box {
       margin-top: 14px;
-      background: #131117;
-      border: 1px solid #292433;
+      background: #f4faff;
+      border: 1px solid #cde5fc;
       border-radius: 12px;
       padding: 12px;
     }
@@ -209,8 +227,9 @@
     .activity-art {
       width: 66px;
       height: 66px;
-      border-radius: 10px;
-      background: #262131;
+      border-radius: 12px;
+      background: #e3f2ff;
+      border: 1px solid #c3dff8;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -225,8 +244,8 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: #19161f;
-      border: 2px solid #131117;
+      background: #ffffff;
+      border: 2px solid #cde5fc;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -236,8 +255,8 @@
     .small-badge img { width: 100%; height: 100%; object-fit: cover; }
     .timer-row {
       font-size: 12px;
-      font-weight: 600;
-      color: #3ba55d;
+      font-weight: 700;
+      color: #2f9e66;
       margin-top: 4px;
       display: flex;
       align-items: center;
@@ -247,43 +266,45 @@
       display: block;
       width: 100%;
       text-align: center;
-      background: #241f30;
-      border: 1px solid #352e45;
-      color: #e6dff5;
-      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid #b8daf8;
+      color: #1b365d;
+      border-radius: 9px;
       padding: 8px 10px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       text-decoration: none;
       margin-top: 10px;
+      word-break: break-all;
     }
+    .card-link-btn:hover { background: #e8f4ff; }
     .templates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 14px; }
-    .tpl-card { background: #131117; border: 1px solid #292433; border-radius: 12px; padding: 14px; }
+    .tpl-card { background: #f6fbff; border: 1px solid #cde5fc; border-radius: 12px; padding: 14px; }
     .pill-tabs { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
     .pill-btn {
-      background: #241f30;
-      color: #b7afc7;
-      border: 1px solid #352e45;
+      background: #eef7ff;
+      color: #3e5c76;
+      border: 1px solid #c3dff8;
       border-radius: 8px;
       padding: 6px 12px;
       font-size: 12px;
       cursor: pointer;
     }
-    .pill-btn.active { background: #6d5dfc; color: #fff; border-color: #6d5dfc; }
-    .star-btn { background: transparent; border: none; font-size: 20px; cursor: pointer; color: #6b637d; padding: 0 2px; }
+    .pill-btn.active { background: #5aa9e6; color: #ffffff; border-color: #5aa9e6; }
+    .star-btn { background: transparent; border: none; font-size: 20px; cursor: pointer; color: #bfd9f0; padding: 0 2px; }
     .star-btn.active { color: #f5b942; }
-    .rating-bar-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #b7afc7; margin: 5px 0; }
-    .bar-track { flex: 1; height: 7px; background: #262131; border-radius: 99px; overflow: hidden; }
-    .bar-fill { height: 100%; background: #f5b942; }
+    .rating-bar-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #486581; margin: 5px 0; }
+    .bar-track { flex: 1; height: 7px; background: #e3f2ff; border-radius: 99px; overflow: hidden; }
+    .bar-fill { height: 100%; background: #5aa9e6; }
     .hidden { display: none; }
-    .feedback-msg { font-size: 12px; color: #7ad39b; margin-top: 6px; min-height: 16px; }
+    .feedback-msg { font-size: 12px; color: #2f855a; margin-top: 6px; min-height: 16px; }
   </style>
 </head>
 <body>
   <aside class="sidebar">
     <div>
       <div class="brand">❄️ snowfall status</div>
-      <div class="brand-sub">สถานะแบบกำหนดเอง</div>
+      <div class="brand-sub">ธีมฟ้าขาวพาสเทล</div>
 
       <div class="nav-item active" data-tab="status" onclick="switchTab('status')">สถานะของคุณ</div>
       <div class="nav-item" data-tab="templates" onclick="switchTab('templates')">เทมเพลต</div>
@@ -291,17 +312,15 @@
       <div class="nav-item" data-tab="report" onclick="switchTab('report')">แจ้งปัญหา</div>
 
       <div class="nav-group-title">ลิงก์</div>
-      <a class="nav-link-small" href="https://discord.com" target="_blank">เซิร์ฟเวอร์ Discord</a>
+      <a class="nav-link-small" href="https://discord.gg/mUqsuB5x4k" target="_blank" rel="noopener noreferrer">เซิร์ฟเวอร์ Discord</a>
       <a class="nav-link-small" href="#faq" onclick="switchTab('report'); return false;">ช่วยเหลือ & คำถามที่พบบ่อย</a>
       <a class="nav-link-small" href="#how" onclick="switchTab('status'); return false;">วิธีการใช้งาน</a>
 
-      <div class="owner-box">
-        <div class="owner-label">เจ้าของเซิร์ฟเวอร์ / ผู้สร้าง</div>
-        <div class="owner-row">
-          <span id="ownerNameDisplay" class="owner-name">เจ้าของเซิร์ฟเวอร์</span>
-          <button class="mini-btn" onclick="editOwnerName()">แก้ชื่อ</button>
-        </div>
-      </div>
+      <a class="creator-link-box" href="https://discord.gg/mUqsuB5x4k" target="_blank" rel="noopener noreferrer">
+        <div class="creator-label">ผู้สร้าง / เจ้าของเซิร์ฟเวอร์</div>
+        <div class="creator-title">กดที่นี่เพื่อเข้า Discord ผู้สร้าง</div>
+        <div class="creator-sub">https://discord.gg/mUqsuB5x4k</div>
+      </a>
     </div>
 
     <div>
@@ -314,8 +333,8 @@
       <div class="user-box">
         <img id="sideAvatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" />
         <div>
-          <div id="sideName" style="font-size:13px; font-weight:600;">ผู้เยี่ยมชม</div>
-          <div id="sideHandle" style="font-size:11px; color:#8f87a1;">ยังไม่ได้เชื่อมต่อ</div>
+          <div id="sideName" style="font-size:13px; font-weight:600; color:#1b365d;">ผู้เยี่ยมชม</div>
+          <div id="sideHandle" style="font-size:11px; color:#64829e;">ยังไม่ได้เชื่อมต่อ</div>
         </div>
       </div>
     </div>
@@ -330,7 +349,6 @@
       </div>
     </div>
 
-    <!-- หน้า 1: สถานะของคุณ -->
     <section id="tab-status">
       <div class="grid-editor">
         <div>
@@ -384,7 +402,7 @@
             <label class="field-label">ข้อความเมื่อชี้รูป (hover text)</label>
             <input id="inHover" type="text" value="น่ารักที่สุดเลย" oninput="renderPreview()" />
 
-            <div class="row-between" style="margin-top:16px; padding-top:14px; border-top:1px solid #292433;">
+            <div class="row-between" style="margin-top:16px; padding-top:14px; border-top:1px solid #d4e9fc;">
               <div>
                 <div class="section-title" style="margin:0;">รูปเล็กมุมล่างขวา (small picture)</div>
                 <div class="sub-desc" style="margin:2px 0 0;">สติกเกอร์หรือรูปเล็กบนมุมขวาของรูปหลัก</div>
@@ -411,22 +429,10 @@
           </div>
 
           <div class="panel">
-            <div class="row-between">
-              <span class="section-title" style="margin:0;">ปุ่มลิงก์บนการ์ด (buttons)</span>
-              <input id="inBtnEnabled" type="checkbox" checked onchange="renderPreview()" />
-            </div>
-
-            <label class="field-label">ข้อความปุ่มที่ 1</label>
-            <input id="inBtn1Text" type="text" value="คลิกที่นี่" oninput="renderPreview()" />
-
-            <label class="field-label">ลิงก์ปุ่มที่ 1</label>
-            <input id="inBtn1Url" type="text" value="https://discord.com" oninput="renderPreview()" />
-
-            <label class="field-label">ข้อความปุ่มที่ 2 (เว้นว่างได้หากไม่ใช้)</label>
-            <input id="inBtn2Text" type="text" value="" placeholder="เช่น เข้าเซิร์ฟเวอร์" oninput="renderPreview()" />
-
-            <label class="field-label">ลิงก์ปุ่มที่ 2</label>
-            <input id="inBtn2Url" type="text" value="" placeholder="https://..." oninput="renderPreview()" />
+            <h2 class="section-title">ลิงก์บนการ์ด (ล็อกถาวร)</h2>
+            <p class="sub-desc">ลิงก์บนการ์ดถูกตั้งค่าคงที่ไว้เป็น https://discord.gg/mUqsuB5x4k ไม่สามารถแก้ไขได้</p>
+            <label class="field-label">ลิงก์ปุ่มบนการ์ด</label>
+            <input type="text" value="https://discord.gg/mUqsuB5x4k" readonly />
           </div>
 
           <div class="row-between" style="flex-wrap:wrap;">
@@ -441,7 +447,7 @@
 
         <aside>
           <div class="row-between" style="margin-bottom:10px;">
-            <span style="font-size:13px; color:#b7afc7;">ตัวอย่างการ์ด</span>
+            <span style="font-size:13px; color:#486581;">ตัวอย่างการ์ด</span>
             <div>
               <button class="mini-btn" onclick="setDeviceMode('pc')">pc</button>
               <button class="mini-btn" onclick="setDeviceMode('phone')">phone</button>
@@ -452,21 +458,21 @@
             <div id="cardBanner" class="banner"></div>
             <div class="profile-body">
               <img id="cardAvatar" class="profile-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="profile" />
-              <div id="cardDisplayName" style="font-size:17px; font-weight:700; margin-top:8px;">คุณ</div>
-              <div id="cardUsername" style="font-size:12px; color:#8f87a1;">ชื่อผู้ใช้</div>
+              <div id="cardDisplayName" style="font-size:17px; font-weight:700; margin-top:8px; color:#1b365d;">คุณ</div>
+              <div id="cardUsername" style="font-size:12px; color:#64829e;">ชื่อผู้ใช้</div>
 
               <div id="activityBox" class="activity-box">
-                <div id="prevType" style="font-size:12px; font-weight:600; color:#c6bed9;">กำลังเล่น</div>
+                <div id="prevType" style="font-size:12px; font-weight:700; color:#3e5c76;">กำลังเล่น</div>
                 <div class="activity-content">
                   <div class="art-wrap">
                     <div id="prevArt" class="activity-art" title="น่ารักที่สุดเลย">🐱</div>
                     <div id="prevSmallArt" class="small-badge" title="สติกเกอร์เล็กๆ">✨</div>
                   </div>
                   <div style="min-width:0; flex:1;">
-                    <div id="prevFirst" style="font-size:13px; font-weight:600;">♡ ~ ♪</div>
-                    <div id="prevSecond" style="font-size:12px; color:#b7afc7;">sweet • kitty</div>
+                    <div id="prevFirst" style="font-size:13px; font-weight:700; color:#1b365d;">♡ ~ ♪</div>
+                    <div id="prevSecond" style="font-size:12px; color:#5c7c99;">sweet • kitty</div>
                     <div id="prevTimerWrap" class="timer-row">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="#3ba55d" aria-hidden="true">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="#2f9e66" aria-hidden="true">
                         <path d="M6.5 7.5h11A4.5 4.5 0 0 1 22 12v2.2a3.3 3.3 0 0 1-5.64 2.33l-1.66-1.66a1 1 0 0 0-.7-.29H10a1 1 0 0 0-.7.29l-1.66 1.66A3.3 3.3 0 0 1 2 14.2V12a4.5 4.5 0 0 1 4.5-4.5zm1 2.2v1.3H6.2v1.4h1.3v1.3h1.4v-1.3h1.3V11H8.9V9.7H7.5zm8.5.3a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
                       </svg>
                       <span id="timerText">00:00</span>
@@ -474,8 +480,9 @@
                   </div>
                 </div>
 
-                <a id="prevBtn1" href="https://discord.com" target="_blank" class="card-link-btn">คลิกที่นี่</a>
-                <a id="prevBtn2" href="#" target="_blank" class="card-link-btn hidden"></a>
+                <a id="prevBtn1" href="https://discord.gg/mUqsuB5x4k" target="_blank" rel="noopener noreferrer" class="card-link-btn">
+                  https://discord.gg/mUqsuB5x4k
+                </a>
               </div>
             </div>
           </div>
@@ -483,7 +490,6 @@
       </div>
     </section>
 
-    <!-- หน้า 2: เทมเพลต -->
     <section id="tab-templates" class="hidden">
       <div class="panel">
         <div class="row-between" style="flex-wrap:wrap;">
@@ -506,7 +512,6 @@
       </div>
     </section>
 
-    <!-- หน้า 3: รีวิว -->
     <section id="tab-reviews" class="hidden">
       <div class="panel">
         <h2 class="section-title" style="font-size:20px;">รีวิว (reviews)</h2>
@@ -525,7 +530,7 @@
         <textarea id="reviewText" rows="3" placeholder="คุณคิดอย่างไรกับระบบนี้บ้าง..."></textarea>
 
         <div class="row-between" style="margin-top:10px;">
-          <label style="font-size:13px; color:#b7afc7;">
+          <label style="font-size:13px; color:#486581;">
             <input id="reviewAnon" type="checkbox" /> โพสต์แบบไม่ระบุตัวตน
           </label>
           <button class="btn btn-primary" onclick="addReview()">โพสต์รีวิว</button>
@@ -543,7 +548,6 @@
       </div>
     </section>
 
-    <!-- หน้า 4: แจ้งปัญหา -->
     <section id="tab-report" class="hidden">
       <div class="panel" style="max-width:620px;">
         <h2 class="section-title" style="font-size:20px;">แจ้งปัญหา (report a status)</h2>
@@ -558,6 +562,7 @@
   </main>
 
   <script>
+    const LOCKED_DISCORD_URL = 'https://discord.gg/mUqsuB5x4k';
     const CLIENT_ID = '1573366716535406622';
     const REDIRECT_URI = encodeURIComponent('https://bot-snowfall.onrender.com/callback');
     document.getElementById('authBtn').href =
@@ -579,19 +584,6 @@
         { author: 'ไม่ระบุตัวตน', rating: 5, text: 'หน้าตาเว็บสวยมาก ปรับแต่งง่ายสุดๆ' },
         { author: 'สมาชิกเซิร์ฟเวอร์', rating: 5, text: 'เทมเพลตเยอะและเข้ากับธีมมากครับ' }
       ];
-    }
-
-    const savedOwner = localStorage.getItem('snowfall_owner') || 'เจ้าของเซิร์ฟเวอร์';
-    document.getElementById('ownerNameDisplay').textContent = savedOwner;
-
-    function editOwnerName() {
-      const current = document.getElementById('ownerNameDisplay').textContent;
-      const next = prompt('กรอกชื่อเจ้าของเซิร์ฟเวอร์ / ผู้สร้าง:', current);
-      if (next && next.trim()) {
-        const clean = next.trim();
-        document.getElementById('ownerNameDisplay').textContent = clean;
-        localStorage.setItem('snowfall_owner', clean);
-      }
     }
 
     function applyUserProfile(display, handleText, avatarUrl) {
@@ -701,21 +693,9 @@
       document.getElementById('prevTimerWrap').style.display = timerMode === 'none' ? 'none' : 'flex';
       updateTimerLabel();
 
-      const btnEnabled = document.getElementById('inBtnEnabled').checked;
       const btn1 = document.getElementById('prevBtn1');
-      const btn2 = document.getElementById('prevBtn2');
-      const b1Text = (document.getElementById('inBtn1Text').value || '').trim();
-      const b1Url = (document.getElementById('inBtn1Url').value || '#').trim();
-      const b2Text = (document.getElementById('inBtn2Text').value || '').trim();
-      const b2Url = (document.getElementById('inBtn2Url').value || '#').trim();
-
-      btn1.style.display = (btnEnabled && b1Text) ? 'block' : 'none';
-      btn1.textContent = b1Text;
-      btn1.href = b1Url;
-
-      btn2.classList.toggle('hidden', !(btnEnabled && b2Text));
-      btn2.textContent = b2Text;
-      btn2.href = b2Url;
+      btn1.href = LOCKED_DISCORD_URL;
+      btn1.textContent = LOCKED_DISCORD_URL;
     }
 
     function collectCurrentStatus() {
@@ -728,12 +708,7 @@
         hover: document.getElementById('inHover').value,
         smallEnabled: document.getElementById('inSmallEnabled').checked,
         smallArt: document.getElementById('inSmallArt').value,
-        smallHover: document.getElementById('inSmallHover').value,
-        btnEnabled: document.getElementById('inBtnEnabled').checked,
-        btn1Text: document.getElementById('inBtn1Text').value,
-        btn1Url: document.getElementById('inBtn1Url').value,
-        btn2Text: document.getElementById('inBtn2Text').value,
-        btn2Url: document.getElementById('inBtn2Url').value
+        smallHover: document.getElementById('inSmallHover').value
       };
     }
 
@@ -786,11 +761,6 @@
       document.getElementById('inSmallEnabled').checked = true;
       document.getElementById('inSmallArt').value = '✨';
       document.getElementById('inSmallHover').value = 'สติกเกอร์เล็กๆ';
-      document.getElementById('inBtnEnabled').checked = true;
-      document.getElementById('inBtn1Text').value = 'คลิกที่นี่';
-      document.getElementById('inBtn1Url').value = 'https://discord.com';
-      document.getElementById('inBtn2Text').value = '';
-      document.getElementById('inBtn2Url').value = '';
       document.getElementById('saveMsg').textContent = 'รีเซ็ตค่าเริ่มต้นเรียบร้อยแล้วครับ';
       renderPreview();
     }
@@ -809,11 +779,6 @@
         if (d.smallEnabled !== undefined) document.getElementById('inSmallEnabled').checked = d.smallEnabled;
         if (d.smallArt !== undefined) document.getElementById('inSmallArt').value = d.smallArt;
         if (d.smallHover !== undefined) document.getElementById('inSmallHover').value = d.smallHover;
-        if (d.btnEnabled !== undefined) document.getElementById('inBtnEnabled').checked = d.btnEnabled;
-        if (d.btn1Text !== undefined) document.getElementById('inBtn1Text').value = d.btn1Text;
-        if (d.btn1Url !== undefined) document.getElementById('inBtn1Url').value = d.btn1Url;
-        if (d.btn2Text !== undefined) document.getElementById('inBtn2Text').value = d.btn2Text;
-        if (d.btn2Url !== undefined) document.getElementById('inBtn2Url').value = d.btn2Url;
       } catch (_) {}
     }
 
@@ -834,12 +799,12 @@
         document.getElementById('templatesList').innerHTML = `<div class="sub-desc">ยังไม่มีเทมเพลตในหมวดนี้ครับ</div>`;
         return;
       }
-      document.getElementById('templatesList').innerHTML = filtered.map((t, idx) => `
+      document.getElementById('templatesList').innerHTML = filtered.map(t => `
         <div class="tpl-card">
-          <div style="font-weight:700; font-size:15px; margin-bottom:4px;">${t.title}</div>
-          <div style="font-size:11px; color:#8f87a1; margin-bottom:8px;">${t.owner === 'yours' ? 'เทมเพลตของฉัน' : 'เทมเพลตแนะนำ'}</div>
-          <div style="font-size:12px; color:#b7afc7;">${t.first}</div>
-          <div style="font-size:12px; color:#8f87a1; margin-bottom:10px;">${t.second}</div>
+          <div style="font-weight:700; font-size:15px; margin-bottom:4px; color:#1b365d;">${t.title}</div>
+          <div style="font-size:11px; color:#64829e; margin-bottom:8px;">${t.owner === 'yours' ? 'เทมเพลตของฉัน' : 'เทมเพลตแนะนำ'}</div>
+          <div style="font-size:12px; color:#3e5c76;">${t.first}</div>
+          <div style="font-size:12px; color:#64829e; margin-bottom:10px;">${t.second}</div>
           <button class="btn btn-secondary" style="width:100%;" onclick="useTemplateFromPool('${encodeURIComponent(JSON.stringify(t))}')">ใช้เทมเพลตนี้</button>
         </div>
       `).join('');
@@ -879,13 +844,12 @@
     }
 
     function renderReviews() {
-      const total = reviewsData.length || 1;
       const counts = [5, 4, 3, 2, 1].map(star => ({
         star,
         count: reviewsData.filter(r => r.rating === star).length
       }));
       document.getElementById('ratingSummary').innerHTML = counts.map(c => {
-        const pct = Math.round((c.count / reviewsData.length) * 100) || 0;
+        const pct = Math.round((c.count / (reviewsData.length || 1)) * 100) || 0;
         return `
           <div class="rating-bar-row">
             <span style="width:28px;">${c.star} ★</span>
@@ -896,12 +860,12 @@
       }).join('');
 
       document.getElementById('reviewsList').innerHTML = reviewsData.map(r => `
-        <div style="border-top:1px solid #292433; padding:12px 0;">
+        <div style="border-top:1px solid #d4e9fc; padding:12px 0;">
           <div class="row-between">
-            <strong style="font-size:13px;">${r.author}</strong>
+            <strong style="font-size:13px; color:#1b365d;">${r.author}</strong>
             <span style="color:#f5b942; font-size:13px;">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
           </div>
-          <div style="font-size:13px; color:#d7d0e6; margin-top:5px;">${r.text}</div>
+          <div style="font-size:13px; color:#3e5c76; margin-top:5px;">${r.text}</div>
         </div>
       `).join('');
     }
@@ -958,4 +922,4 @@
     renderReviews();
   </script>
 </body>
-</html
+</html>
