@@ -222,7 +222,19 @@
       border-radius: 12px;
       padding: 12px;
     }
-    .activity-content { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
+    .activity-content {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .activity-content.pos-top {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .activity-content.pos-right {
+      flex-direction: row-reverse;
+    }
     .art-wrap { position: relative; width: 66px; height: 66px; flex-shrink: 0; }
     .activity-art {
       width: 66px;
@@ -252,6 +264,9 @@
       font-size: 13px;
       overflow: hidden;
     }
+    .small-badge.badge-bottom-left { right: auto; left: -5px; bottom: -5px; }
+    .small-badge.badge-top-right { right: -5px; bottom: auto; top: -5px; }
+    .small-badge.badge-top-left { right: auto; left: -5px; bottom: auto; top: -5px; }
     .small-badge img { width: 100%; height: 100%; object-fit: cover; }
     .timer-row {
       font-size: 12px;
@@ -399,13 +414,20 @@
             <input id="inArt" type="text" value="🐱" oninput="renderPreview()" />
             <div id="mainArtStatus" class="feedback-msg"></div>
 
+            <label class="field-label">ตำแหน่งกรอบรูปหลัก</label>
+            <select id="inArtPos" onchange="renderPreview()">
+              <option value="left">ด้านซ้ายข้างข้อความ</option>
+              <option value="top">ด้านบนข้อความ</option>
+              <option value="right">ด้านขวาข้างข้อความ</option>
+            </select>
+
             <label class="field-label">ข้อความเมื่อชี้รูป (hover text)</label>
             <input id="inHover" type="text" value="น่ารักที่สุดเลย" oninput="renderPreview()" />
 
             <div class="row-between" style="margin-top:16px; padding-top:14px; border-top:1px solid #d4e9fc;">
               <div>
-                <div class="section-title" style="margin:0;">รูปเล็กมุมล่างขวา (small picture)</div>
-                <div class="sub-desc" style="margin:2px 0 0;">สติกเกอร์หรือรูปเล็กบนมุมขวาของรูปหลัก</div>
+                <div class="section-title" style="margin:0;">รูปเล็กมุมกรอบ (small picture)</div>
+                <div class="sub-desc" style="margin:2px 0 0;">สติกเกอร์หรือรูปเล็กบนมุมกรอบรูปหลัก</div>
               </div>
               <input id="inSmallEnabled" type="checkbox" checked onchange="renderPreview()" />
             </div>
@@ -423,6 +445,14 @@
 
             <label class="field-label">ลิงก์รูปเล็กหรืออีโมจิ</label>
             <input id="inSmallArt" type="text" value="✨" oninput="renderPreview()" />
+
+            <label class="field-label">ตำแหน่งกรอบรูปเล็ก</label>
+            <select id="inSmallPos" onchange="renderPreview()">
+              <option value="bottom-right">มุมล่างขวา</option>
+              <option value="bottom-left">มุมล่างซ้าย</option>
+              <option value="top-right">มุมบนขวา</option>
+              <option value="top-left">มุมบนซ้าย</option>
+            </select>
 
             <label class="field-label">ข้อความเมื่อชี้รูปเล็ก</label>
             <input id="inSmallHover" type="text" value="สติกเกอร์เล็กๆ" oninput="renderPreview()" />
@@ -463,7 +493,7 @@
 
               <div id="activityBox" class="activity-box">
                 <div id="prevType" style="font-size:12px; font-weight:700; color:#3e5c76;">กำลังเล่น</div>
-                <div class="activity-content">
+                <div id="activityContent" class="activity-content">
                   <div class="art-wrap">
                     <div id="prevArt" class="activity-art" title="น่ารักที่สุดเลย">🐱</div>
                     <div id="prevSmallArt" class="small-badge" title="สติกเกอร์เล็กๆ">✨</div>
@@ -671,6 +701,21 @@
       }
     }
 
+    function applyFramePositions() {
+      const artPos = document.getElementById('inArtPos').value;
+      const contentBox = document.getElementById('activityContent');
+      contentBox.classList.remove('pos-top', 'pos-right');
+      if (artPos === 'top') contentBox.classList.add('pos-top');
+      if (artPos === 'right') contentBox.classList.add('pos-right');
+
+      const smallPos = document.getElementById('inSmallPos').value;
+      const badge = document.getElementById('prevSmallArt');
+      badge.classList.remove('badge-bottom-left', 'badge-top-right', 'badge-top-left');
+      if (smallPos === 'bottom-left') badge.classList.add('badge-bottom-left');
+      if (smallPos === 'top-right') badge.classList.add('badge-top-right');
+      if (smallPos === 'top-left') badge.classList.add('badge-top-left');
+    }
+
     function renderPreview() {
       const enabled = document.getElementById('statusEnabled').checked;
       document.getElementById('statusToggleText').textContent = enabled ? 'เปิดใช้งานสถานะแล้ว' : 'ปิดใช้งานสถานะแล้ว';
@@ -689,6 +734,8 @@
       smallBadge.title = document.getElementById('inSmallHover').value || '';
       setVisualContent(smallBadge, document.getElementById('smallThumbBox'), document.getElementById('inSmallArt').value, '✨');
 
+      applyFramePositions();
+
       const timerMode = document.getElementById('inTimerMode').value;
       document.getElementById('prevTimerWrap').style.display = timerMode === 'none' ? 'none' : 'flex';
       updateTimerLabel();
@@ -705,9 +752,11 @@
         second: document.getElementById('inSecondLine').value,
         timerMode: document.getElementById('inTimerMode').value,
         art: document.getElementById('inArt').value,
+        artPos: document.getElementById('inArtPos').value,
         hover: document.getElementById('inHover').value,
         smallEnabled: document.getElementById('inSmallEnabled').checked,
         smallArt: document.getElementById('inSmallArt').value,
+        smallPos: document.getElementById('inSmallPos').value,
         smallHover: document.getElementById('inSmallHover').value
       };
     }
@@ -757,9 +806,11 @@
       document.getElementById('inSecondLine').value = 'sweet • kitty';
       document.getElementById('inTimerMode').value = 'up';
       document.getElementById('inArt').value = '🐱';
+      document.getElementById('inArtPos').value = 'left';
       document.getElementById('inHover').value = 'น่ารักที่สุดเลย';
       document.getElementById('inSmallEnabled').checked = true;
       document.getElementById('inSmallArt').value = '✨';
+      document.getElementById('inSmallPos').value = 'bottom-right';
       document.getElementById('inSmallHover').value = 'สติกเกอร์เล็กๆ';
       document.getElementById('saveMsg').textContent = 'รีเซ็ตค่าเริ่มต้นเรียบร้อยแล้วครับ';
       renderPreview();
@@ -775,9 +826,11 @@
         if (d.second !== undefined) document.getElementById('inSecondLine').value = d.second;
         if (d.timerMode) document.getElementById('inTimerMode').value = d.timerMode;
         if (d.art !== undefined) document.getElementById('inArt').value = d.art;
+        if (d.artPos) document.getElementById('inArtPos').value = d.artPos;
         if (d.hover !== undefined) document.getElementById('inHover').value = d.hover;
         if (d.smallEnabled !== undefined) document.getElementById('inSmallEnabled').checked = d.smallEnabled;
         if (d.smallArt !== undefined) document.getElementById('inSmallArt').value = d.smallArt;
+        if (d.smallPos) document.getElementById('inSmallPos').value = d.smallPos;
         if (d.smallHover !== undefined) document.getElementById('inSmallHover').value = d.smallHover;
       } catch (_) {}
     }
