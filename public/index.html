@@ -3,923 +3,150 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Snowfall Status - สถานะของฉัน</title>
+  <title>Snowfall — เชื่อมต่อ Discord</title>
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Thai", sans-serif;
-      background: linear-gradient(180deg, #eef7ff 0%, #f8fcff 100%);
-      color: #243b53;
       min-height: 100vh;
-      display: flex;
+      display: grid;
+      place-items: center;
+      background: #0f1117;
+      color: #f3f4f6;
+      padding: 20px;
     }
-    .sidebar {
-      width: 248px;
-      background: #e6f3ff;
-      border-right: 1px solid #cce4fa;
-      padding: 16px 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 14px;
-      flex-shrink: 0;
-    }
-    .brand { font-weight: 700; font-size: 16px; padding: 4px 10px 2px; color: #1b365d; }
-    .brand-sub { font-size: 11px; color: #5c7c99; padding: 0 10px 12px; border-bottom: 1px solid #cce4fa; margin-bottom: 10px; }
-    .nav-item { padding: 9px 12px; border-radius: 10px; color: #3e5c76; font-size: 14px; margin-bottom: 4px; cursor: pointer; }
-    .nav-item:hover { background: #d8ecff; color: #1b365d; }
-    .nav-item.active { background: #ffffff; color: #1b365d; font-weight: 700; box-shadow: 0 2px 6px rgba(90, 145, 195, 0.14); }
-    .nav-group-title { font-size: 11px; color: #6b89a6; padding: 12px 12px 6px; }
-    .nav-link-small { display: block; padding: 6px 12px; font-size: 13px; color: #3e5c76; text-decoration: none; border-radius: 8px; cursor: pointer; }
-    .nav-link-small:hover { background: #d8ecff; color: #1b365d; }
-    .creator-link-box {
-      display: block;
-      background: #ffffff;
-      border: 1px solid #b8daf8;
-      border-radius: 12px;
-      padding: 11px 12px;
-      margin-top: 10px;
-      text-decoration: none;
-      color: #1b365d;
-      box-shadow: 0 2px 8px rgba(110, 168, 219, 0.14);
-    }
-    .creator-link-box:hover { background: #f2f9ff; border-color: #7bb8ee; }
-    .creator-label { font-size: 11px; color: #5c7c99; margin-bottom: 3px; }
-    .creator-title { font-size: 13px; font-weight: 700; color: #1b365d; }
-    .creator-sub { font-size: 11px; color: #3a7bd5; margin-top: 2px; word-break: break-all; }
-    .mini-btn {
-      background: #ffffff;
-      color: #243b53;
-      border: 1px solid #b8daf8;
-      border-radius: 8px;
-      padding: 5px 9px;
-      font-size: 11px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .mini-btn:hover { background: #eef7ff; }
-    .user-box {
-      background: #ffffff;
-      border: 1px solid #cce4fa;
-      border-radius: 12px;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .avatar { width: 34px; height: 34px; border-radius: 50%; background: #7bb8ee; object-fit: cover; flex-shrink: 0; }
-    .main { flex: 1; padding: 20px 24px; overflow-y: auto; }
-    .top-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
-    .breadcrumb { color: #5c7c99; font-size: 13px; }
-    .status-toggle-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #ffffff;
-      border: 1px solid #cce4fa;
-      padding: 7px 12px;
-      border-radius: 10px;
-      font-size: 13px;
-      color: #243b53;
-    }
-    .grid-editor { display: grid; grid-template-columns: 1fr 355px; gap: 22px; align-items: start; }
-    @media (max-width: 880px) {
-      body { flex-direction: column; }
-      .sidebar { width: 100%; border-right: none; border-bottom: 1px solid #cce4fa; }
-      .grid-editor { grid-template-columns: 1fr; }
-    }
-    .panel {
-      background: #ffffff;
-      border: 1px solid #d4e9fc;
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 14px rgba(130, 180, 224, 0.1);
-    }
-    .section-title { font-size: 15px; font-weight: 700; margin: 0 0 6px; color: #1b365d; }
-    .sub-desc { font-size: 12px; color: #64829e; margin: 0 0 10px; }
-    .field-label { display: block; font-size: 12px; color: #486581; margin: 10px 0 5px; }
-    input[type="text"], select, textarea {
+    .card {
       width: 100%;
-      background: #f5faff;
-      border: 1px solid #c3dff8;
-      color: #1b365d;
-      border-radius: 9px;
-      padding: 9px 11px;
-      font-size: 13px;
-      font-family: inherit;
+      max-width: 460px;
+      background: #181b24;
+      border: 1px solid #2a2f3d;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
     }
-    input[readonly] { background: #eaf4fe; color: #486581; cursor: not-allowed; }
-    .row-between { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .btn {
-      padding: 10px 14px;
+    h1 { margin: 0 0 8px; font-size: 22px; }
+    p { margin: 0 0 16px; color: #9ca3af; font-size: 14px; line-height: 1.5; }
+    label { display: block; font-size: 13px; color: #d1d5db; margin-bottom: 6px; }
+    select, input {
+      width: 100%;
+      padding: 10px 12px;
       border-radius: 10px;
+      border: 1px solid #32384a;
+      background: #10131a;
+      color: #f9fafb;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+    .btn {
+      width: 100%;
+      padding: 12px 16px;
       border: none;
-      font-size: 13px;
+      border-radius: 10px;
+      background: #5865f2;
+      color: #fff;
+      font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
     }
-    .btn-primary { background: #5aa9e6; color: #ffffff; }
-    .btn-primary:hover { background: #4697d6; }
-    .btn-secondary { background: #eef7ff; color: #1b365d; border: 1px solid #b8daf8; }
-    .pic-picker-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
-    .pic-thumb-box {
-      width: 68px;
-      height: 68px;
+    .btn:hover { background: #4752c4; }
+    .profile {
+      margin-top: 18px;
+      padding: 14px;
       border-radius: 12px;
-      background: #f2f9ff;
-      border: 1px solid #c3dff8;
-      display: flex;
+      background: #11141c;
+      border: 1px solid #272c3a;
+      display: none;
       align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      overflow: hidden;
-      flex-shrink: 0;
+      gap: 12px;
     }
-    .pic-thumb-box img { width: 100%; height: 100%; object-fit: cover; }
-    .preview-card {
-      background: #ffffff;
-      border: 1px solid #d4e9fc;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 6px 18px rgba(120, 175, 220, 0.14);
-    }
-    .preview-card.phone-mode { max-width: 310px; margin: 0 auto; }
-    .banner { height: 82px; background: linear-gradient(135deg, #bfe2ff, #e6f4ff); }
-    .profile-body { padding: 0 16px 16px; }
-    .profile-avatar {
-      width: 64px;
-      height: 64px;
+    .profile.show { display: flex; }
+    .profile img {
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      border: 4px solid #ffffff;
-      margin-top: -32px;
-      background: #7bb8ee;
       object-fit: cover;
+      background: #2a2f3d;
     }
-    .activity-box {
-      margin-top: 14px;
-      background: #f4faff;
-      border: 1px solid #cde5fc;
-      border-radius: 12px;
-      padding: 12px;
-    }
-    .activity-content { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
-    .activity-content.pos-top { flex-direction: column; align-items: flex-start; }
-    .activity-content.pos-right { flex-direction: row-reverse; }
-    .art-wrap { position: relative; width: 66px; height: 66px; flex-shrink: 0; }
-    .activity-art {
-      width: 66px;
-      height: 66px;
-      border-radius: 12px;
-      background: #e3f2ff;
-      border: 1px solid #c3dff8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      overflow: hidden;
-    }
-    .activity-art img { width: 100%; height: 100%; object-fit: cover; }
-    .small-badge {
-      position: absolute;
-      right: -5px;
-      bottom: -5px;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #ffffff;
-      border: 2px solid #cde5fc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .status {
+      margin-top: 12px;
       font-size: 13px;
-      overflow: hidden;
+      color: #fbbf24;
+      word-break: break-word;
     }
-    .small-badge.badge-bottom-left { right: auto; left: -5px; bottom: -5px; }
-    .small-badge.badge-top-right { right: -5px; bottom: auto; top: -5px; }
-    .small-badge.badge-top-left { right: auto; left: -5px; bottom: auto; top: -5px; }
-    .small-badge img { width: 100%; height: 100%; object-fit: cover; }
-    .timer-row { font-size: 12px; font-weight: 700; color: #2f9e66; margin-top: 4px; display: flex; align-items: center; gap: 6px; }
-    .card-link-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      background: #ffffff;
-      border: 1px solid #b8daf8;
-      color: #1b365d;
-      border-radius: 9px;
-      padding: 8px 10px;
-      font-size: 12px;
-      font-weight: 700;
-      text-decoration: none;
-      margin-top: 10px;
-      word-break: break-all;
-    }
-    .card-link-btn:hover { background: #e8f4ff; }
-    .templates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 14px; }
-    .tpl-card { background: #f6fbff; border: 1px solid #cde5fc; border-radius: 12px; padding: 14px; }
-    .pill-tabs { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-    .pill-btn { background: #eef7ff; color: #3e5c76; border: 1px solid #c3dff8; border-radius: 8px; padding: 6px 12px; font-size: 12px; cursor: pointer; }
-    .pill-btn.active { background: #5aa9e6; color: #ffffff; border-color: #5aa9e6; }
-    .star-btn { background: transparent; border: none; font-size: 20px; cursor: pointer; color: #bfd9f0; padding: 0 2px; }
-    .star-btn.active { color: #f5b942; }
-    .rating-bar-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #486581; margin: 5px 0; }
-    .bar-track { flex: 1; height: 7px; background: #e3f2ff; border-radius: 99px; overflow: hidden; }
-    .bar-fill { height: 100%; background: #5aa9e6; }
-    .hidden { display: none; }
-    .feedback-msg { font-size: 12px; color: #2f855a; margin-top: 6px; min-height: 16px; }
   </style>
 </head>
 <body>
-  <aside class="sidebar">
-    <div>
-      <div class="brand">❄️ snowfall status</div>
-      <div class="brand-sub">ธีมฟ้าขาวพาสเทล</div>
+  <div class="card">
+    <h1>Snowfall</h1>
+    <p>เชื่อมต่อบัญชี Discord เพื่อใช้งานร่วมกับระบบ Snowfall</p>
 
-      <div class="nav-item active" data-tab="status" onclick="switchTab('status')">สถานะของคุณ</div>
-      <div class="nav-item" data-tab="templates" onclick="switchTab('templates')">เทมเพลต</div>
-      <div class="nav-item" data-tab="reviews" onclick="switchTab('reviews')">รีวิว</div>
-      <div class="nav-item" data-tab="report" onclick="switchTab('report')">แจ้งปัญหา</div>
+    <label for="scopePreset">เลือกชุดสิทธิ์ (Scope) ที่ต้องการทดสอบ</label>
+    <select id="scopePreset">
+      <option value="identify">พื้นฐาน (identify)</option>
+      <option value="identify activities.write">พื้นฐาน + กิจกรรม (identify activities.write)</option>
+      <option value="identify activities.write relationships.read">พื้นฐาน + กิจกรรม + รายชื่อเพื่อน (identify activities.write relationships.read)</option>
+      <option value="custom">กำหนด Scope เองด้านล่าง</option>
+    </select>
 
-      <div class="nav-group-title">ลิงก์</div>
-      <a class="nav-link-small" href="https://discord.gg/mUqsuB5x4k" target="_blank" rel="noopener noreferrer">เซิร์ฟเวอร์ Discord</a>
-      <a class="nav-link-small" href="#faq" onclick="switchTab('report'); return false;">ช่วยเหลือ & คำถามที่พบบ่อย</a>
-      <a class="nav-link-small" href="#how" onclick="switchTab('status'); return false;">วิธีการใช้งาน</a>
+    <label for="customScope">Scope ที่จะส่งไปให้ Discord</label>
+    <input id="customScope" type="text" value="identify" />
 
-      <a class="creator-link-box" href="https://discord.gg/mUqsuB5x4k" target="_blank" rel="noopener noreferrer">
-        <div class="creator-label">ผู้สร้าง / เจ้าของเซิร์ฟเวอร์</div>
-        <div class="creator-title">กดที่นี่เพื่อเข้า Discord ผู้สร้าง</div>
-        <div class="creator-sub">https://discord.gg/mUqsuB5x4k</div>
-      </a>
-    </div>
+    <button class="btn" id="connectBtn" type="button">เชื่อมต่อ Discord</button>
 
-    <div>
-      <a id="authBtn" class="btn btn-primary" style="display:block; text-align:center; margin-bottom:8px;" href="#">
-        เชื่อมต่อ Discord
-      </a>
-      <button class="btn btn-secondary" style="width:100%; margin-bottom:10px; font-size:12px;" onclick="quickLoginDemo()">
-        ตั้งชื่อ / รูปโปรไฟล์เอง
-      </button>
-      <div class="user-box">
-        <img id="sideAvatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" />
-        <div>
-          <div id="sideName" style="font-size:13px; font-weight:600; color:#1b365d;">ผู้เยี่ยมชม</div>
-          <div id="sideHandle" style="font-size:11px; color:#64829e;">ยังไม่ได้เชื่อมต่อ</div>
-        </div>
+    <div class="status" id="statusText"></div>
+
+    <div class="profile" id="profileBox">
+      <img id="avatarImg" src="" alt="Avatar" />
+      <div>
+        <div id="displayName" style="font-weight:600;"></div>
+        <div id="userMeta" style="font-size:12px;color:#9ca3af;"></div>
       </div>
     </div>
-  </aside>
-
-  <main class="main">
-    <div class="top-bar">
-      <div id="breadcrumb" class="breadcrumb">snowfall status / สถานะของคุณ</div>
-      <div class="status-toggle-wrap">
-        <span id="statusToggleText">เปิดใช้งานสถานะแล้ว</span>
-        <input id="statusEnabled" type="checkbox" checked onchange="renderPreview()" />
-      </div>
-    </div>
-
-    <section id="tab-status">
-      <div class="grid-editor">
-        <div>
-          <div class="panel">
-            <h2 class="section-title">ข้อความสถานะ</h2>
-            <p class="sub-desc">กำหนดข้อความและประเภทกิจกรรมที่แสดงบนการ์ด</p>
-
-            <label class="field-label">ประเภทกิจกรรม</label>
-            <select id="inType" onchange="renderPreview()">
-              <option value="กำลังเล่น">กำลังเล่น (playing)</option>
-              <option value="กำลังฟัง">กำลังฟัง (listening)</option>
-              <option value="กำลังรับชม">กำลังรับชม (watching)</option>
-            </select>
-
-            <label class="field-label">บรรทัดแรก (first line)</label>
-            <input id="inFirstLine" type="text" value="♡ ~ ♪" oninput="renderPreview()" />
-
-            <label class="field-label">บรรทัดที่สอง (second line)</label>
-            <input id="inSecondLine" type="text" value="sweet • kitty" oninput="renderPreview()" />
-          </div>
-
-          <div class="panel">
-            <h2 class="section-title">ตัวจับเวลา (timer)</h2>
-            <label class="field-label">โหมดตัวจับเวลา</label>
-            <select id="inTimerMode" onchange="renderPreview()">
-              <option value="up">นับเวลาเดินหน้า (counting up)</option>
-              <option value="clock">เวลาปัจจุบัน (current time)</option>
-              <option value="none">ซ่อนตัวจับเวลา</option>
-            </select>
-          </div>
-
-          <div class="panel">
-            <h2 class="section-title">รูปภาพหลัก & GIF (pictures)</h2>
-            <p class="sub-desc">กดอัปโหลดไฟล์เพื่อสร้างลิงก์ /uploads/... อัตโนมัติ หรือวางลิงก์รูป/GIF/อีโมจิ</p>
-
-            <div class="pic-picker-row">
-              <div id="mainThumbBox" class="pic-thumb-box">🐱</div>
-              <div>
-                <button class="btn btn-secondary" type="button" onclick="document.getElementById('mainFileInput').click()">
-                  เปลี่ยนรูป / GIF
-                </button>
-                <button class="mini-btn" type="button" onclick="clearMediaInput('main')">ล้างช่อง / อีโมจิ</button>
-                <button class="mini-btn" type="button" onclick="renderPreview()">อัปเดตพรีวิว</button>
-                <input id="mainFileInput" type="file" accept="image/*" class="hidden" onchange="handleServerUpload(event, 'main')" />
-              </div>
-            </div>
-
-            <label class="field-label">ลิงก์รูปภาพ / GIF หรืออีโมจิ</label>
-            <input id="inArt" type="text" value="🐱" onchange="renderPreview()" />
-            <div id="mainArtStatus" class="feedback-msg"></div>
-
-            <label class="field-label">ตำแหน่งกรอบรูปหลัก</label>
-            <select id="inArtPos" onchange="renderPreview()">
-              <option value="left">ด้านซ้ายข้างข้อความ</option>
-              <option value="top">ด้านบนข้อความ</option>
-              <option value="right">ด้านขวาข้างข้อความ</option>
-            </select>
-
-            <label class="field-label">ข้อความเมื่อชี้รูป (hover text)</label>
-            <input id="inHover" type="text" value="น่ารักที่สุดเลย" onchange="renderPreview()" />
-
-            <div class="row-between" style="margin-top:16px; padding-top:14px; border-top:1px solid #d4e9fc;">
-              <div>
-                <div class="section-title" style="margin:0;">รูปเล็กมุมกรอบ (small picture)</div>
-                <div class="sub-desc" style="margin:2px 0 0;">สติกเกอร์หรือรูปเล็กบนมุมกรอบรูปหลัก</div>
-              </div>
-              <input id="inSmallEnabled" type="checkbox" checked onchange="renderPreview()" />
-            </div>
-
-            <div class="pic-picker-row">
-              <div id="smallThumbBox" class="pic-thumb-box" style="width:46px; height:46px; font-size:18px;">✨</div>
-              <div>
-                <button class="btn btn-secondary" type="button" onclick="document.getElementById('smallFileInput').click()">
-                  เลือกรูปเล็ก / GIF
-                </button>
-                <button class="mini-btn" type="button" onclick="clearMediaInput('small')">ล้างช่อง / อีโมจิ</button>
-                <button class="mini-btn" type="button" onclick="renderPreview()">อัปเดตพรีวิว</button>
-                <input id="smallFileInput" type="file" accept="image/*" class="hidden" onchange="handleServerUpload(event, 'small')" />
-              </div>
-            </div>
-
-            <label class="field-label">ลิงก์รูปเล็กหรืออีโมจิ</label>
-            <input id="inSmallArt" type="text" value="✨" onchange="renderPreview()" />
-
-            <label class="field-label">ตำแหน่งกรอบรูปเล็ก</label>
-            <select id="inSmallPos" onchange="renderPreview()">
-              <option value="bottom-right">มุมล่างขวา</option>
-              <option value="bottom-left">มุมล่างซ้าย</option>
-              <option value="top-right">มุมบนขวา</option>
-              <option value="top-left">มุมบนซ้าย</option>
-            </select>
-
-            <label class="field-label">ข้อความเมื่อชี้รูปเล็ก</label>
-            <input id="inSmallHover" type="text" value="สติกเกอร์เล็กๆ" onchange="renderPreview()" />
-          </div>
-
-          <div class="panel">
-            <h2 class="section-title">ลิงก์บนการ์ด (ล็อกถาวร)</h2>
-            <p class="sub-desc">ลิงก์บนการ์ดถูกตั้งค่าคงที่ไว้เป็น https://discord.gg/mUqsuB5x4k ไม่สามารถแก้ไขได้</p>
-            <label class="field-label">ลิงก์ปุ่มบนการ์ด</label>
-            <input type="text" value="https://discord.gg/mUqsuB5x4k" readonly />
-          </div>
-
-          <div class="row-between" style="flex-wrap:wrap;">
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <button class="btn btn-primary" onclick="saveStatus()">บันทึก (save)</button>
-              <button class="btn btn-secondary" onclick="saveAsMyTemplate()">บันทึกเป็นเทมเพลตของฉัน</button>
-              <button class="btn btn-secondary" onclick="resetStatus()">รีเซ็ต (reset)</button>
-            </div>
-          </div>
-          <div id="saveMsg" class="feedback-msg"></div>
-        </div>
-
-        <aside>
-          <div class="row-between" style="margin-bottom:10px;">
-            <span style="font-size:13px; color:#486581;">ตัวอย่างการ์ด</span>
-            <div>
-              <button class="mini-btn" onclick="setDeviceMode('pc')">pc</button>
-              <button class="mini-btn" onclick="setDeviceMode('phone')">phone</button>
-            </div>
-          </div>
-
-          <div id="previewCard" class="preview-card">
-            <div id="cardBanner" class="banner"></div>
-            <div class="profile-body">
-              <img id="cardAvatar" class="profile-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="profile" />
-              <div id="cardDisplayName" style="font-size:17px; font-weight:700; margin-top:8px; color:#1b365d;">คุณ</div>
-              <div id="cardUsername" style="font-size:12px; color:#64829e;">ชื่อผู้ใช้</div>
-
-              <div id="activityBox" class="activity-box">
-                <div id="prevType" style="font-size:12px; font-weight:700; color:#3e5c76;">กำลังเล่น</div>
-                <div id="activityContent" class="activity-content">
-                  <div class="art-wrap">
-                    <div id="prevArt" class="activity-art" title="น่ารักที่สุดเลย">🐱</div>
-                    <div id="prevSmallArt" class="small-badge" title="สติกเกอร์เล็กๆ">✨</div>
-                  </div>
-                  <div style="min-width:0; flex:1;">
-                    <div id="prevFirst" style="font-size:13px; font-weight:700; color:#1b365d;">♡ ~ ♪</div>
-                    <div id="prevSecond" style="font-size:12px; color:#5c7c99;">sweet • kitty</div>
-                    <div id="prevTimerWrap" class="timer-row">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="#2f9e66" aria-hidden="true">
-                        <path d="M6.5 7.5h11A4.5 4.5 0 0 1 22 12v2.2a3.3 3.3 0 0 1-5.64 2.33l-1.66-1.66a1 1 0 0 0-.7-.29H10a1 1 0 0 0-.7.29l-1.66 1.66A3.3 3.3 0 0 1 2 14.2V12a4.5 4.5 0 0 1 4.5-4.5zm1 2.2v1.3H6.2v1.4h1.3v1.3h1.4v-1.3h1.3V11H8.9V9.7H7.5zm8.5.3a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                      </svg>
-                      <span id="timerText">00:00</span>
-                    </div>
-                  </div>
-                </div>
-
-                <a id="prevBtn1" href="https://discord.gg/mUqsuB5x4k" target="_blank" rel="noopener noreferrer" class="card-link-btn">
-                  https://discord.gg/mUqsuB5x4k
-                </a>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section id="tab-templates" class="hidden">
-      <div class="panel">
-        <div class="row-between" style="flex-wrap:wrap;">
-          <div>
-            <h2 class="section-title" style="font-size:20px;">เทมเพลต (templates)</h2>
-            <div class="sub-desc" style="margin:0;">เทมเพลตพร้อมใช้และเทมเพลตที่คุณสร้างเก็บไว้</div>
-          </div>
-          <button class="btn btn-primary" onclick="createNewTemplatePrompt()">+ สร้างเทมเพลต</button>
-        </div>
-
-        <div class="row-between" style="flex-wrap:wrap; margin-top:12px;">
-          <div class="pill-tabs" style="margin-top:0;">
-            <button id="pill-all" class="pill-btn active" onclick="setTplFilter('all')">ทั้งหมด</button>
-            <button id="pill-yours" class="pill-btn" onclick="setTplFilter('yours')">ของฉัน</button>
-          </div>
-          <input id="tplSearch" type="text" placeholder="ค้นหาเทมเพลต..." style="max-width:240px; margin-top:12px;" oninput="renderTemplates()" />
-        </div>
-
-        <div id="templatesList" class="templates-grid"></div>
-      </div>
-    </section>
-
-    <section id="tab-reviews" class="hidden">
-      <div class="panel">
-        <h2 class="section-title" style="font-size:20px;">รีวิว (reviews)</h2>
-        <div class="sub-desc">เขียนรีวิวด้วยโปรไฟล์ของคุณหรือแบบไม่ระบุตัวตน</div>
-
-        <label class="field-label">ให้คะแนนดาว</label>
-        <div id="starPicker">
-          <button class="star-btn active" onclick="setRating(1)">★</button>
-          <button class="star-btn active" onclick="setRating(2)">★</button>
-          <button class="star-btn active" onclick="setRating(3)">★</button>
-          <button class="star-btn active" onclick="setRating(4)">★</button>
-          <button class="star-btn active" onclick="setRating(5)">★</button>
-        </div>
-
-        <label class="field-label">ความคิดเห็น</label>
-        <textarea id="reviewText" rows="3" placeholder="คุณคิดอย่างไรกับระบบนี้บ้าง..."></textarea>
-
-        <div class="row-between" style="margin-top:10px;">
-          <label style="font-size:13px; color:#486581;">
-            <input id="reviewAnon" type="checkbox" /> โพสต์แบบไม่ระบุตัวตน
-          </label>
-          <button class="btn btn-primary" onclick="addReview()">โพสต์รีวิว</button>
-        </div>
-      </div>
-
-      <div class="panel">
-        <h3 class="section-title">สรุปคะแนนดาว</h3>
-        <div id="ratingSummary"></div>
-      </div>
-
-      <div class="panel">
-        <h3 class="section-title">รายการรีวิว</h3>
-        <div id="reviewsList"></div>
-      </div>
-    </section>
-
-    <section id="tab-report" class="hidden">
-      <div class="panel" style="max-width:620px;">
-        <h2 class="section-title" style="font-size:20px;">แจ้งปัญหา (report a status)</h2>
-        <div class="sub-desc">แจ้งปัญหาหรือข้อผิดพลาดที่พบในระบบ</div>
-        <label class="field-label">หัวข้อปัญหา</label>
-        <input id="reportTopic" type="text" placeholder="เช่น รูป/GIF ไม่ขึ้น หรือการแสดงผลผิดพลาด" />
-        <label class="field-label">รายละเอียด</label>
-        <textarea id="reportDetail" rows="4" placeholder="อธิบายรายละเอียดเพิ่มเติม..."></textarea>
-        <button class="btn btn-primary" style="margin-top:12px;" onclick="submitReport()">ส่งรายงาน</button>
-      </div>
-    </section>
-  </main>
+  </div>
 
   <script>
-    const LOCKED_DISCORD_URL = 'https://discord.gg/mUqsuB5x4k';
     const CLIENT_ID = '1573366716535406622';
-    const REDIRECT_URI = encodeURIComponent('https://bot-snowfall.onrender.com/callback');
-    document.getElementById('authBtn').href =
-      `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&scope=identify`;
+    const REDIRECT_URI = 'https://bot-snowfall.onrender.com/callback';
 
-    const presetTemplates = [
-      { title: '.sweet kitty', type: 'กำลังเล่น', first: '♡ ~ ♪', second: 'sweet • kitty', art: '🐱', small: '✨', owner: 'preset' },
-      { title: 'columbina | genshin impact', type: 'กำลังเล่น', first: 'in the water, the future mirrors...', second: 'the veil of lies is slipping', art: '🌙', small: '✦', owner: 'preset' },
-      { title: 'sleepy bunny c:', type: 'กำลังฟัง', first: 'z z z', second: 'ฝันดีนะคืนนี้', art: '🐰', small: '💤', owner: 'preset' },
-      { title: 'soft angel aa', type: 'กำลังรับชม', first: '✧ ˚ · .', second: 'โหมดพักผ่อนสบายๆ', art: '🪽', small: '♡', owner: 'preset' }
-    ];
+    const scopePreset = document.getElementById('scopePreset');
+    const customScope = document.getElementById('customScope');
+    const connectBtn = document.getElementById('connectBtn');
+    const statusText = document.getElementById('statusText');
+    const profileBox = document.getElementById('profileBox');
+    const avatarImg = document.getElementById('avatarImg');
+    const displayName = document.getElementById('displayName');
+    const userMeta = document.getElementById('userMeta');
 
-    let customTemplates = JSON.parse(localStorage.getItem('snowfall_custom_templates') || '[]');
-    let tplFilter = 'all';
-    let currentRating = 5;
-    let reviewsData = JSON.parse(localStorage.getItem('snowfall_reviews') || '[]');
-    if (reviewsData.length === 0) {
-      reviewsData = [
-        { author: 'ไม่ระบุตัวตน', rating: 5, text: 'หน้าตาเว็บสวยมาก ปรับแต่งง่ายสุดๆ' },
-        { author: 'สมาชิกเซิร์ฟเวอร์', rating: 5, text: 'เทมเพลตเยอะและเข้ากับธีมมากครับ' }
-      ];
-    }
-
-    function applyUserProfile(display, handleText, avatarUrl) {
-      document.getElementById('sideName').textContent = display;
-      document.getElementById('sideHandle').textContent = handleText;
-      document.getElementById('sideAvatar').src = avatarUrl;
-      document.getElementById('cardDisplayName').textContent = display;
-      document.getElementById('cardUsername').textContent = handleText;
-      document.getElementById('cardAvatar').src = avatarUrl;
-      document.getElementById('authBtn').textContent = 'เชื่อมต่อ Discord แล้ว ✓';
-    }
-
-    function quickLoginDemo() {
-      const name = prompt('พิมพ์ชื่อที่ต้องการแสดงบนโปรไฟล์:', document.getElementById('cardDisplayName').textContent || 'ผู้ใช้งาน');
-      if (!name || !name.trim()) return;
-      const cleanName = name.trim();
-      const avatarInput = prompt('วางลิงก์รูปโปรไฟล์ (หรือเว้นว่างไว้ใช้รูปเริ่มต้น):', '');
-      const avatarUrl = (avatarInput && avatarInput.trim()) ? avatarInput.trim() : 'https://cdn.discordapp.com/embed/avatars/0.png';
-      const profileObj = { display: cleanName, handle: `@${cleanName.toLowerCase().replace(/\s+/g, '_')}`, avatar: avatarUrl };
-      try { localStorage.setItem('snowfall_profile', JSON.stringify(profileObj)); } catch (_) {}
-      applyUserProfile(profileObj.display, profileObj.handle, profileObj.avatar);
-    }
-
-    const tabNames = {
-      status: 'สถานะของคุณ',
-      templates: 'เทมเพลต',
-      reviews: 'รีวิว',
-      report: 'แจ้งปัญหา'
-    };
-
-    function switchTab(tab) {
-      document.querySelectorAll('.nav-item').forEach(el => {
-        el.classList.toggle('active', el.dataset.tab === tab);
-      });
-      ['status', 'templates', 'reviews', 'report'].forEach(t => {
-        document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tab);
-      });
-      document.getElementById('breadcrumb').textContent = `snowfall status / ${tabNames[tab]}`;
-    }
-
-    function setDeviceMode(mode) {
-      document.getElementById('previewCard').classList.toggle('phone-mode', mode === 'phone');
-    }
-
-    function clearMediaInput(target) {
-      if (target === 'main') {
-        document.getElementById('inArt').value = '🐱';
-        document.getElementById('mainArtStatus').textContent = 'ล้างช่องและตั้งเป็นอีโมจิ 🐱 แล้วครับ';
-      } else {
-        document.getElementById('inSmallArt').value = '✨';
+    scopePreset.addEventListener('change', () => {
+      if (scopePreset.value !== 'custom') {
+        customScope.value = scopePreset.value;
       }
-      renderPreview();
-    }
+    });
 
-    async function handleServerUpload(event, target) {
-      const file = event.target.files?.[0];
-      if (!file) return;
-      const statusEl = document.getElementById('mainArtStatus');
-      statusEl.textContent = `กำลังอัปโหลด "${file.name}"...`;
-
-      const dotIdx = file.name.lastIndexOf('.');
-      const ext = dotIdx >= 0 ? file.name.slice(dotIdx).toLowerCase() : '.gif';
-
-      try {
-        const buffer = await file.arrayBuffer();
-        const res = await fetch('/api/upload', {
-          method: 'POST',
-          headers: {
-            'Content-Type': file.type || 'application/octet-stream',
-            'x-file-ext': ext
-          },
-          body: buffer
-        });
-        const json = await res.json();
-        if (!res.ok || !json.ok || !json.url) {
-          throw new Error(json.error || 'อัปโหลดไม่สำเร็จ');
-        }
-        if (target === 'main') {
-          document.getElementById('inArt').value = json.url;
-          statusEl.textContent = `อัปโหลดสำเร็จ! ได้ลิงก์ ${json.url}`;
-        } else {
-          document.getElementById('inSmallArt').value = json.url;
-          statusEl.textContent = `อัปโหลดรูปเล็กสำเร็จ! ได้ลิงก์ ${json.url}`;
-        }
-        renderPreview();
-      } catch (_) {
-        statusEl.textContent = 'อัปโหลดขึ้นเซิร์ฟเวอร์ไม่สำเร็จ กรุณาตรวจสอบไฟล์ server.js หรือวางลิงก์รูป/GIF โดยตรงครับ';
-      }
-    }
-
-    function isImageSource(val) {
-      const s = (val || '').trim();
-      return s.startsWith('http://') || s.startsWith('https://') || s.startsWith('data:image/') || s.startsWith('/');
-    }
-
-    function setVisualContent(el, thumbEl, val, fallback) {
-      const clean = (val || fallback).trim();
-      if (isImageSource(clean)) {
-        const currentImg = el.querySelector('img');
-        if (!currentImg || currentImg.getAttribute('src') !== clean) {
-          el.innerHTML = `<img src="${clean}" alt="media" />`;
-        }
-        if (thumbEl) {
-          const currentThumb = thumbEl.querySelector('img');
-          if (!currentThumb || currentThumb.getAttribute('src') !== clean) {
-            thumbEl.innerHTML = `<img src="${clean}" alt="media" />`;
-          }
-        }
-      } else {
-        el.textContent = clean;
-        if (thumbEl) thumbEl.textContent = clean;
-      }
-    }
-
-    function applyFramePositions() {
-      const artPos = document.getElementById('inArtPos').value;
-      const contentBox = document.getElementById('activityContent');
-      contentBox.classList.remove('pos-top', 'pos-right');
-      if (artPos === 'top') contentBox.classList.add('pos-top');
-      if (artPos === 'right') contentBox.classList.add('pos-right');
-
-      const smallPos = document.getElementById('inSmallPos').value;
-      const badge = document.getElementById('prevSmallArt');
-      badge.classList.remove('badge-bottom-left', 'badge-top-right', 'badge-top-left');
-      if (smallPos === 'bottom-left') badge.classList.add('badge-bottom-left');
-      if (smallPos === 'top-right') badge.classList.add('badge-top-right');
-      if (smallPos === 'top-left') badge.classList.add('badge-top-left');
-    }
-
-    function renderPreview() {
-      const enabled = document.getElementById('statusEnabled').checked;
-      document.getElementById('statusToggleText').textContent = enabled ? 'เปิดใช้งานสถานะแล้ว' : 'ปิดใช้งานสถานะแล้ว';
-      document.getElementById('activityBox').style.opacity = enabled ? '1' : '0.4';
-
-      document.getElementById('prevType').textContent = document.getElementById('inType').value;
-      document.getElementById('prevFirst').textContent = document.getElementById('inFirstLine').value || ' ';
-      document.getElementById('prevSecond').textContent = document.getElementById('inSecondLine').value || ' ';
-
-      document.getElementById('prevArt').title = document.getElementById('inHover').value || '';
-      setVisualContent(document.getElementById('prevArt'), document.getElementById('mainThumbBox'), document.getElementById('inArt').value, '🐱');
-
-      const smallEnabled = document.getElementById('inSmallEnabled').checked;
-      const smallBadge = document.getElementById('prevSmallArt');
-      smallBadge.style.display = smallEnabled ? 'flex' : 'none';
-      smallBadge.title = document.getElementById('inSmallHover').value || '';
-      setVisualContent(smallBadge, document.getElementById('smallThumbBox'), document.getElementById('inSmallArt').value, '✨');
-
-      applyFramePositions();
-
-      const timerMode = document.getElementById('inTimerMode').value;
-      document.getElementById('prevTimerWrap').style.display = timerMode === 'none' ? 'none' : 'flex';
-      updateTimerLabel();
-
-      const btn1 = document.getElementById('prevBtn1');
-      btn1.href = LOCKED_DISCORD_URL;
-      btn1.textContent = LOCKED_DISCORD_URL;
-    }
-
-    function collectCurrentStatus() {
-      return {
-        type: document.getElementById('inType').value,
-        first: document.getElementById('inFirstLine').value,
-        second: document.getElementById('inSecondLine').value,
-        timerMode: document.getElementById('inTimerMode').value,
-        art: document.getElementById('inArt').value,
-        artPos: document.getElementById('inArtPos').value,
-        hover: document.getElementById('inHover').value,
-        smallEnabled: document.getElementById('inSmallEnabled').checked,
-        smallArt: document.getElementById('inSmallArt').value,
-        smallPos: document.getElementById('inSmallPos').value,
-        smallHover: document.getElementById('inSmallHover').value
-      };
-    }
-
-    function saveStatus() {
-      const data = collectCurrentStatus();
-      try {
-        localStorage.setItem('snowfall_status', JSON.stringify(data));
-        document.getElementById('saveMsg').textContent = 'บันทึกการตั้งค่าเรียบร้อยแล้วครับ';
-      } catch (_) {
-        document.getElementById('saveMsg').textContent = 'แสดงผลบนการ์ดแล้วครับ';
-      }
-    }
-
-    function saveAsMyTemplate() {
-      const name = prompt('ตั้งชื่อเทมเพลตของฉัน:', 'เทมเพลตของฉัน');
-      if (!name || !name.trim()) return;
-      const d = collectCurrentStatus();
-      customTemplates.unshift({
-        title: name.trim(),
-        type: d.type,
-        first: d.first,
-        second: d.second,
-        art: d.art,
-        small: d.smallArt,
-        owner: 'yours'
-      });
-      try {
-        localStorage.setItem('snowfall_custom_templates', JSON.stringify(customTemplates));
-        renderTemplates();
-        document.getElementById('saveMsg').textContent = `บันทึกเทมเพลต "${name.trim()}" ลงในแท็บ "ของฉัน" แล้วครับ`;
-      } catch (_) {
-        renderTemplates();
-        document.getElementById('saveMsg').textContent = 'เพิ่มเทมเพลตลงในรายการชั่วคราวแล้วครับ';
-      }
-    }
-
-    function createNewTemplatePrompt() {
-      switchTab('status');
-      saveAsMyTemplate();
-    }
-
-    function resetStatus() {
-      localStorage.removeItem('snowfall_status');
-      document.getElementById('inType').value = 'กำลังเล่น';
-      document.getElementById('inFirstLine').value = '♡ ~ ♪';
-      document.getElementById('inSecondLine').value = 'sweet • kitty';
-      document.getElementById('inTimerMode').value = 'up';
-      document.getElementById('inArt').value = '🐱';
-      document.getElementById('inArtPos').value = 'left';
-      document.getElementById('inHover').value = 'น่ารักที่สุดเลย';
-      document.getElementById('inSmallEnabled').checked = true;
-      document.getElementById('inSmallArt').value = '✨';
-      document.getElementById('inSmallPos').value = 'bottom-right';
-      document.getElementById('inSmallHover').value = 'สติกเกอร์เล็กๆ';
-      document.getElementById('saveMsg').textContent = 'รีเซ็ตค่าเริ่มต้นเรียบร้อยแล้วครับ';
-      renderPreview();
-    }
-
-    function loadSavedStatus() {
-      const raw = localStorage.getItem('snowfall_status');
-      if (!raw) return;
-      try {
-        const d = JSON.parse(raw);
-        if (d.type) document.getElementById('inType').value = d.type;
-        if (d.first !== undefined) document.getElementById('inFirstLine').value = d.first;
-        if (d.second !== undefined) document.getElementById('inSecondLine').value = d.second;
-        if (d.timerMode) document.getElementById('inTimerMode').value = d.timerMode;
-        if (d.art !== undefined) document.getElementById('inArt').value = d.art;
-        if (d.artPos) document.getElementById('inArtPos').value = d.artPos;
-        if (d.hover !== undefined) document.getElementById('inHover').value = d.hover;
-        if (d.smallEnabled !== undefined) document.getElementById('inSmallEnabled').checked = d.smallEnabled;
-        if (d.smallArt !== undefined) document.getElementById('inSmallArt').value = d.smallArt;
-        if (d.smallPos) document.getElementById('inSmallPos').value = d.smallPos;
-        if (d.smallHover !== undefined) document.getElementById('inSmallHover').value = d.smallHover;
-      } catch (_) {}
-    }
-
-    function setTplFilter(mode) {
-      tplFilter = mode;
-      document.getElementById('pill-all').classList.toggle('active', mode === 'all');
-      document.getElementById('pill-yours').classList.toggle('active', mode === 'yours');
-      renderTemplates();
-    }
-
-    function renderTemplates() {
-      const q = (document.getElementById('tplSearch').value || '').toLowerCase().trim();
-      const pool = tplFilter === 'yours' ? customTemplates : [...customTemplates, ...presetTemplates];
-      const filtered = pool.filter(t =>
-        t.title.toLowerCase().includes(q) || t.first.toLowerCase().includes(q) || t.second.toLowerCase().includes(q)
-      );
-      if (filtered.length === 0) {
-        document.getElementById('templatesList').innerHTML = `<div class="sub-desc">ยังไม่มีเทมเพลตในหมวดนี้ครับ</div>`;
-        return;
-      }
-      document.getElementById('templatesList').innerHTML = filtered.map(t => `
-        <div class="tpl-card">
-          <div style="font-weight:700; font-size:15px; margin-bottom:4px; color:#1b365d;">${t.title}</div>
-          <div style="font-size:11px; color:#64829e; margin-bottom:8px;">${t.owner === 'yours' ? 'เทมเพลตของฉัน' : 'เทมเพลตแนะนำ'}</div>
-          <div style="font-size:12px; color:#3e5c76;">${t.first}</div>
-          <div style="font-size:12px; color:#64829e; margin-bottom:10px;">${t.second}</div>
-          <button class="btn btn-secondary" style="width:100%;" onclick="useTemplateFromPool('${encodeURIComponent(JSON.stringify(t))}')">ใช้เทมเพลตนี้</button>
-        </div>
-      `).join('');
-    }
-
-    function useTemplateFromPool(encoded) {
-      const t = JSON.parse(decodeURIComponent(encoded));
-      document.getElementById('inType').value = t.type || 'กำลังเล่น';
-      document.getElementById('inFirstLine').value = t.first || '';
-      document.getElementById('inSecondLine').value = t.second || '';
-      document.getElementById('inArt').value = t.art || '🐱';
-      document.getElementById('inSmallArt').value = t.small || '✨';
-      renderPreview();
-      switchTab('status');
-    }
-
-    function setRating(star) {
-      currentRating = star;
-      document.querySelectorAll('#starPicker .star-btn').forEach((btn, i) => {
-        btn.classList.toggle('active', i < star);
-      });
-    }
-
-    function addReview() {
-      const text = document.getElementById('reviewText').value.trim();
-      if (!text) return alert('กรุณาพิมพ์ข้อความรีวิวก่อนครับ');
-      const anon = document.getElementById('reviewAnon').checked;
-      const userLabel = document.getElementById('sideName').textContent || 'ผู้ใช้งาน';
-      reviewsData.unshift({
-        author: anon ? 'ไม่ระบุตัวตน' : userLabel,
-        rating: currentRating,
-        text
-      });
-      try { localStorage.setItem('snowfall_reviews', JSON.stringify(reviewsData)); } catch (_) {}
-      document.getElementById('reviewText').value = '';
-      renderReviews();
-    }
-
-    function renderReviews() {
-      const counts = [5, 4, 3, 2, 1].map(star => ({
-        star,
-        count: reviewsData.filter(r => r.rating === star).length
-      }));
-      document.getElementById('ratingSummary').innerHTML = counts.map(c => {
-        const pct = Math.round((c.count / (reviewsData.length || 1)) * 100) || 0;
-        return `
-          <div class="rating-bar-row">
-            <span style="width:28px;">${c.star} ★</span>
-            <div class="bar-track"><div class="bar-fill" style="width:${pct}%;"></div></div>
-            <span style="width:26px; text-align:right;">${c.count}</span>
-          </div>
-        `;
-      }).join('');
-
-      document.getElementById('reviewsList').innerHTML = reviewsData.map(r => `
-        <div style="border-top:1px solid #d4e9fc; padding:12px 0;">
-          <div class="row-between">
-            <strong style="font-size:13px; color:#1b365d;">${r.author}</strong>
-            <span style="color:#f5b942; font-size:13px;">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
-          </div>
-          <div style="font-size:13px; color:#3e5c76; margin-top:5px;">${r.text}</div>
-        </div>
-      `).join('');
-    }
-
-    function submitReport() {
-      const topic = document.getElementById('reportTopic').value.trim();
-      const detail = document.getElementById('reportDetail').value.trim();
-      if (!topic || !detail) return alert('กรุณากรอกหัวข้อและรายละเอียดให้ครบครับ');
-      document.getElementById('reportTopic').value = '';
-      document.getElementById('reportDetail').value = '';
-      alert('ส่งรายงานเรียบร้อยแล้วครับ');
-    }
-
-    let seconds = 0;
-    function updateTimerLabel() {
-      const mode = document.getElementById('inTimerMode').value;
-      if (mode === 'clock') {
-        const now = new Date();
-        const hh = String(now.getHours()).padStart(2, '0');
-        const mm = String(now.getMinutes()).padStart(2, '0');
-        document.getElementById('timerText').textContent = `${hh}:${mm}`;
-      } else {
-        const m = String(Math.floor(seconds / 60)).padStart(2, '0');
-        const s = String(seconds % 60).padStart(2, '0');
-        document.getElementById('timerText').textContent = `${m}:${s}`;
-      }
-    }
-
-    setInterval(() => {
-      seconds += 1;
-      updateTimerLabel();
-    }, 1000);
+    connectBtn.addEventListener('click', () => {
+      const scopeValue = customScope.value.trim() || 'identify';
+      const url = `https://discord.com/oauth2/authorize?client_id=${encodeURIComponent(CLIENT_ID)}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(scopeValue)}`;
+      window.location.href = url;
+    });
 
     const params = new URLSearchParams(window.location.search);
+    const authError = params.get('auth_error');
+    const userId = params.get('id');
     const username = params.get('username');
     const globalName = params.get('global_name');
-    const userId = params.get('id');
     const avatar = params.get('avatar');
-    const savedProfile = JSON.parse(localStorage.getItem('snowfall_profile') || 'null');
 
-    if (username) {
-      const display = globalName || username;
-      const avatarUrl = avatar
-        ? `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png`
-        : 'https://cdn.discordapp.com/embed/avatars/0.png';
-      applyUserProfile(display, `@${username}`, avatarUrl);
-    } else if (savedProfile && savedProfile.display) {
-      applyUserProfile(savedProfile.display, savedProfile.handle || '', savedProfile.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png');
+    if (authError) {
+      statusText.textContent = `เกิดข้อผิดพลาดในการเชื่อมต่อ: ${authError}`;
+    } else if (userId) {
+      statusText.textContent = 'เชื่อมต่อบัญชี Discord สำเร็จแล้ว';
+      profileBox.classList.add('show');
+      displayName.textContent = globalName || username || 'Discord User';
+      userMeta.textContent = `@${username || ''} • ID: ${userId}`;
+      avatarImg.src = avatar
+        ? `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png?size=128`
+        : `https://cdn.discordapp.com/embed/avatars/${Number(BigInt(userId) >> 22n) % 6}.png`;
     }
-
-    loadSavedStatus();
-    renderPreview();
-    renderTemplates();
-    renderReviews();
   </script>
 </body>
 </html>
