@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,6 +16,25 @@ const uploadDir = path.join(publicDir, 'uploads');
 
 if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true });
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+
+let botClient = null;
+let currentPresence = {
+  name: 'Snowfall Status',
+  type: 3, // 0 = Playing, 2 = Listening, 3 = Watching
+  status: 'online'
+};
+
+function applyBotPresence() {
+  if (!botClient || !botClient.user) return false;
+  botClient.user.setPresence({
+    activities: [{
+      name: currentPresence.name,
+      type: currentPresence.type
+    }],
+    status: currentPresence.status
+  });
+  return true;
+}
 
 app.post('/api/upload', express.raw({ type: '*/*', limit: '15mb' }), (req, res) => {
   try {
@@ -40,6 +59,39 @@ app.post('/api/upload', express.raw({ type: '*/*', limit: '15mb' }), (req, res) 
 app.use(express.json());
 app.use(express.static(publicDir));
 app.use('/uploads', express.static(uploadDir));
+
+app.get('/api/presence', (req, res) => {
+  res.json({
+    ok: true,
+    botReady: Boolean(botClient && botClient.user),
+    presence: currentPresence
+  });
+});
+
+app.post('/api/presence', (req, res) => {
+  const name = String(req.body?.name || '').trim();
+  const type = Number(req.body?.type ?? 3);
+  const allowedStatus = ['online', 'idle', 'dnd', 'invisible'];
+  const status = allowedStatus.includes(req.body?.status) ? req.body.status : 'online';
+
+  if (!name) {
+    return res.status(400).json({ ok: false, error: 'กรุณากรอกข้อความสถานะ' });
+  }
+
+  currentPresence = {
+    name: name.slice(0, 128),
+    type: [0, 2, 3].includes(type) ? type : 3,
+    status
+  };
+
+  const applied = applyBotPresence();
+  return res.json({
+    ok: true,
+    applied,
+    presence: currentPresence,
+    message: applied ? 'อัปเดตสถานะบอทสำเร็จแล้ว' : 'บันทึกสถานะไว้แล้ว แต่บอทยังไม่ได้ล็อกอิน'
+  });
+});
 
 app.get('/callback', async (req, res) => {
   const code = req.query.code;
@@ -94,9 +146,11 @@ if (BOT_TOKEN && BOT_TOKEN.trim().length > 20) {
   const client = new Client({
     intents: [GatewayIntentBits.Guilds]
   });
+  botClient = client;
 
   client.once('ready', () => {
     console.log(`Discord bot logged in as ${client.user.tag}`);
+    applyBotPresence();
   });
 
   client.login(BOT_TOKEN.trim()).catch(err => {
