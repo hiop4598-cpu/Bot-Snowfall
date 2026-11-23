@@ -3,103 +3,206 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Snowfall — เชื่อมต่อ Discord</title>
+  <title>Snowfall — Status & Presence</title>
   <style>
+    :root {
+      --bg: #f4f9ff;
+      --panel: #ffffff;
+      --panel-2: #edf5ff;
+      --border: #cfe2f7;
+      --text: #1e293b;
+      --muted: #64748b;
+      --accent: #60a5fa;
+      --accent-hover: #3b82f6;
+      --accent-soft: #dbeafe;
+      --ok: #059669;
+      --warn: #d97706;
+    }
     * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
     body {
       margin: 0;
       min-height: 100vh;
+      background: linear-gradient(180deg, #e6f2ff 0%, var(--bg) 55%, #ffffff 100%);
+      color: var(--text);
+      padding: 24px 16px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 100%;
+      max-width: 760px;
       display: grid;
-      place-items: center;
-      background: #0f1117;
-      color: #f3f4f6;
-      padding: 20px;
+      gap: 18px;
+      align-content: start;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px 22px;
+      box-shadow: 0 10px 25px rgba(96, 165, 250, 0.12);
+    }
+    .brand h1 { margin: 0; font-size: 20px; color: #1d4ed8; letter-spacing: 0.2px; }
+    .brand p { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
     }
     .card {
-      width: 100%;
-      max-width: 460px;
-      background: #181b24;
-      border: 1px solid #2a2f3d;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(96, 165, 250, 0.1);
     }
-    h1 { margin: 0 0 8px; font-size: 22px; }
-    p { margin: 0 0 16px; color: #9ca3af; font-size: 14px; line-height: 1.5; }
-    label { display: block; font-size: 13px; color: #d1d5db; margin-bottom: 6px; }
-    select, input {
+    .card h2 { margin: 0 0 12px; font-size: 16px; color: #1e3a8a; }
+    label { display: block; font-size: 13px; color: #334155; margin-bottom: 6px; font-weight: 500; }
+    input, select {
       width: 100%;
       padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid #32384a;
-      background: #10131a;
-      color: #f9fafb;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text);
       font-size: 14px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
+      outline: none;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+      background: #ffffff;
     }
     .btn {
       width: 100%;
-      padding: 12px 16px;
+      padding: 11px 14px;
       border: none;
-      border-radius: 10px;
-      background: #5865f2;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .btn:hover { background: #4752c4; }
-    .profile {
-      margin-top: 18px;
-      padding: 14px;
       border-radius: 12px;
-      background: #11141c;
-      border: 1px solid #272c3a;
+      background: linear-gradient(135deg, #7dd3fc 0%, #60a5fa 100%);
+      color: #0f172a;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(96, 165, 250, 0.28);
+    }
+    .btn:hover { background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); color: #ffffff; }
+    .btn-secondary {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      color: #1e3a8a;
+      width: auto;
+      padding: 9px 14px;
+      box-shadow: none;
+    }
+    .btn-secondary:hover { background: var(--accent-soft); color: #1d4ed8; }
+    .user-box {
       display: none;
       align-items: center;
       gap: 12px;
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      margin-top: 12px;
     }
-    .profile.show { display: flex; }
-    .profile img {
-      width: 48px;
-      height: 48px;
+    .user-box.show { display: flex; }
+    .user-box img {
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       object-fit: cover;
-      background: #2a2f3d;
+      border: 2px solid #93c5fd;
     }
-    .status {
+    .preview {
       margin-top: 12px;
-      font-size: 13px;
-      color: #fbbf24;
-      word-break: break-word;
+      padding: 14px;
+      border-radius: 14px;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
+    .preview img {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #ffffff;
+      border: 1px solid var(--border);
+    }
+    .msg { margin-top: 10px; font-size: 13px; color: var(--warn); min-height: 18px; }
+    .msg.ok { color: var(--ok); }
+    .muted { color: var(--muted); font-size: 12px; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Snowfall</h1>
-    <p>เชื่อมต่อบัญชี Discord เพื่อใช้งานร่วมกับระบบ Snowfall</p>
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <h1>Snowfall Status</h1>
+        <p>เชื่อมต่อบัญชี Discord และควบคุมสถานะบอทบน Render</p>
+      </div>
+      <button class="btn btn-secondary" id="connectBtn" type="button">เชื่อมต่อ Discord</button>
+    </div>
 
-    <label for="scopePreset">เลือกชุดสิทธิ์ (Scope) ที่ต้องการทดสอบ</label>
-    <select id="scopePreset">
-      <option value="identify">พื้นฐาน (identify)</option>
-      <option value="identify activities.write">พื้นฐาน + กิจกรรม (identify activities.write)</option>
-      <option value="identify activities.write relationships.read">พื้นฐาน + กิจกรรม + รายชื่อเพื่อน (identify activities.write relationships.read)</option>
-      <option value="custom">กำหนด Scope เองด้านล่าง</option>
-    </select>
+    <div class="grid">
+      <div class="card">
+        <h2>ตั้งค่าสถานะบอท</h2>
+        <label for="statusName">ข้อความกิจกรรม</label>
+        <input id="statusName" type="text" placeholder="เช่น กำลังดูแลระบบ Snowfall" maxlength="128" />
 
-    <label for="customScope">Scope ที่จะส่งไปให้ Discord</label>
-    <input id="customScope" type="text" value="identify" />
+        <label for="activityType">ประเภทกิจกรรม</label>
+        <select id="activityType">
+          <option value="0">กำลังเล่น (Playing)</option>
+          <option value="2">กำลังฟัง (Listening)</option>
+          <option value="3" selected>กำลังรับชม (Watching)</option>
+        </select>
 
-    <button class="btn" id="connectBtn" type="button">เชื่อมต่อ Discord</button>
+        <label for="botStatus">สถานะออนไลน์</label>
+        <select id="botStatus">
+          <option value="online" selected>Online</option>
+          <option value="idle">Idle</option>
+          <option value="dnd">Do Not Disturb</option>
+          <option value="invisible">Invisible</option>
+        </select>
 
-    <div class="status" id="statusText"></div>
+        <button class="btn" id="savePresenceBtn" type="button">อัปเดตสถานะบอท</button>
+        <div class="msg" id="presenceMsg"></div>
 
-    <div class="profile" id="profileBox">
-      <img id="avatarImg" src="" alt="Avatar" />
-      <div>
-        <div id="displayName" style="font-weight:600;"></div>
-        <div id="userMeta" style="font-size:12px;color:#9ca3af;"></div>
+        <div class="preview">
+          <img id="previewImg" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Preview" />
+          <div>
+            <div class="muted" id="previewTypeText">กำลังรับชม • online</div>
+            <div style="font-weight:600;margin-top:2px;" id="previewNameText">Snowfall Status</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>บัญชี Discord & รูปภาพ</h2>
+        <div class="msg" id="authMsg">กำลังตรวจสอบสถานะการเชื่อมต่อ...</div>
+
+        <div class="user-box" id="userBox">
+          <img id="avatarImg" src="" alt="Avatar" />
+          <div>
+            <div id="displayName" style="font-weight:600;"></div>
+            <div class="muted" id="userMeta"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;">
+          <label for="fileInput">อัปโหลดรูป/GIF สำหรับพรีวิว</label>
+          <input id="fileInput" type="file" accept=".gif,.png,.jpg,.jpeg,.webp" />
+          <button class="btn btn-secondary" id="uploadBtn" type="button" style="width:100%;">อัปโหลดรูป</button>
+          <div class="msg" id="uploadMsg"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -108,26 +211,121 @@
     const CLIENT_ID = '1573366716535406622';
     const REDIRECT_URI = 'https://bot-snowfall.onrender.com/callback';
 
-    const scopePreset = document.getElementById('scopePreset');
-    const customScope = document.getElementById('customScope');
     const connectBtn = document.getElementById('connectBtn');
-    const statusText = document.getElementById('statusText');
-    const profileBox = document.getElementById('profileBox');
+    const statusName = document.getElementById('statusName');
+    const activityType = document.getElementById('activityType');
+    const botStatus = document.getElementById('botStatus');
+    const savePresenceBtn = document.getElementById('savePresenceBtn');
+    const presenceMsg = document.getElementById('presenceMsg');
+    const previewImg = document.getElementById('previewImg');
+    const previewTypeText = document.getElementById('previewTypeText');
+    const previewNameText = document.getElementById('previewNameText');
+
+    const authMsg = document.getElementById('authMsg');
+    const userBox = document.getElementById('userBox');
     const avatarImg = document.getElementById('avatarImg');
     const displayName = document.getElementById('displayName');
     const userMeta = document.getElementById('userMeta');
 
-    scopePreset.addEventListener('change', () => {
-      if (scopePreset.value !== 'custom') {
-        customScope.value = scopePreset.value;
+    const fileInput = document.getElementById('fileInput');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const uploadMsg = document.getElementById('uploadMsg');
+
+    const typeLabels = { 0: 'กำลังเล่น', 2: 'กำลังฟัง', 3: 'กำลังรับชม' };
+
+    function renderPreview() {
+      const label = typeLabels[Number(activityType.value)] || 'กำลังรับชม';
+      previewTypeText.textContent = `${label} • ${botStatus.value}`;
+      previewNameText.textContent = statusName.value.trim() || 'Snowfall Status';
+    }
+
+    connectBtn.addEventListener('click', () => {
+      const url = `https://discord.com/oauth2/authorize?client_id=${encodeURIComponent(CLIENT_ID)}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=identify`;
+      window.location.href = url;
+    });
+
+    async function loadPresence() {
+      try {
+        const res = await fetch('/api/presence');
+        const data = await res.json();
+        if (data.ok && data.presence) {
+          statusName.value = data.presence.name || '';
+          activityType.value = String(data.presence.type ?? 3);
+          botStatus.value = data.presence.status || 'online';
+          renderPreview();
+        }
+      } catch (_) {}
+    }
+
+    savePresenceBtn.addEventListener('click', async () => {
+      const name = statusName.value.trim();
+      if (!name) {
+        presenceMsg.className = 'msg';
+        presenceMsg.textContent = 'กรุณากรอกข้อความกิจกรรมก่อนครับ';
+        return;
+      }
+      savePresenceBtn.disabled = true;
+      presenceMsg.className = 'msg';
+      presenceMsg.textContent = 'กำลังส่งสถานะไปที่บอท...';
+      try {
+        const res = await fetch('/api/presence', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name,
+            type: Number(activityType.value),
+            status: botStatus.value
+          })
+        });
+        const data = await res.json();
+        renderPreview();
+        presenceMsg.className = data.ok ? 'msg ok' : 'msg';
+        presenceMsg.textContent = data.message || data.error || 'อัปเดตแล้ว';
+      } catch (err) {
+        presenceMsg.className = 'msg';
+        presenceMsg.textContent = 'เชื่อมต่อ API ไม่สำเร็จ';
+      } finally {
+        savePresenceBtn.disabled = false;
       }
     });
 
-    connectBtn.addEventListener('click', () => {
-      const scopeValue = customScope.value.trim() || 'identify';
-      const url = `https://discord.com/oauth2/authorize?client_id=${encodeURIComponent(CLIENT_ID)}&response_type=code&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(scopeValue)}`;
-      window.location.href = url;
+    uploadBtn.addEventListener('click', async () => {
+      const file = fileInput.files?.[0];
+      if (!file) {
+        uploadMsg.className = 'msg';
+        uploadMsg.textContent = 'กรุณาเลือกไฟล์รูปภาพก่อนครับ';
+        return;
+      }
+      const extMatch = file.name.toLowerCase().match(/\.(gif|png|jpg|jpeg|webp)$/);
+      const ext = extMatch ? extMatch[0] : '.png';
+      uploadBtn.disabled = true;
+      uploadMsg.className = 'msg';
+      uploadMsg.textContent = 'กำลังอัปโหลด...';
+      try {
+        const buf = await file.arrayBuffer();
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          headers: { 'x-file-ext': ext },
+          body: buf
+        });
+        const data = await res.json();
+        if (data.ok && data.url) {
+          previewImg.src = data.url;
+          uploadMsg.className = 'msg ok';
+          uploadMsg.textContent = 'อัปโหลดรูปสำเร็จแล้ว';
+        } else {
+          uploadMsg.className = 'msg';
+          uploadMsg.textContent = data.error || 'อัปโหลดไม่สำเร็จ';
+        }
+      } catch (_) {
+        uploadMsg.className = 'msg';
+        uploadMsg.textContent = 'เกิดข้อผิดพลาดระหว่างอัปโหลด';
+      } finally {
+        uploadBtn.disabled = false;
+      }
     });
+
+    [statusName, activityType, botStatus].forEach(el => el.addEventListener('input', renderPreview));
 
     const params = new URLSearchParams(window.location.search);
     const authError = params.get('auth_error');
@@ -137,16 +335,22 @@
     const avatar = params.get('avatar');
 
     if (authError) {
-      statusText.textContent = `เกิดข้อผิดพลาดในการเชื่อมต่อ: ${authError}`;
+      authMsg.className = 'msg';
+      authMsg.textContent = `เชื่อมต่อไม่สำเร็จ: ${authError}`;
     } else if (userId) {
-      statusText.textContent = 'เชื่อมต่อบัญชี Discord สำเร็จแล้ว';
-      profileBox.classList.add('show');
+      authMsg.className = 'msg ok';
+      authMsg.textContent = 'เชื่อมต่อบัญชี Discord สำเร็จแล้ว';
+      userBox.classList.add('show');
       displayName.textContent = globalName || username || 'Discord User';
       userMeta.textContent = `@${username || ''} • ID: ${userId}`;
       avatarImg.src = avatar
         ? `https://cdn.discordapp.com/avatars/${userId}/${avatar}.png?size=128`
         : `https://cdn.discordapp.com/embed/avatars/${Number(BigInt(userId) >> 22n) % 6}.png`;
+    } else {
+      authMsg.textContent = 'ยังไม่ได้เชื่อมต่อบัญชี Discord';
     }
+
+    loadPresence();
   </script>
 </body>
 </html>
